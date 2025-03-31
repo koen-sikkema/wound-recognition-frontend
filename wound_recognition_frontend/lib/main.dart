@@ -1,100 +1,104 @@
 import 'package:flutter/material.dart';
+import 'dart:io';
+import 'package:image_picker/image_picker.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(WoundRecognitionApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class WoundRecognitionApp extends StatefulWidget {
+  @override
+  _WoundRecognitionAppState createState() => _WoundRecognitionAppState();
+}
 
-  // This widget is the root of your application.
+class _WoundRecognitionAppState extends State<WoundRecognitionApp> {
+  String screen = "home";
+  File? image;
+  String? result;
+
+  Future<void> pickImage() async {
+    final pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
+      setState(() {
+        image = File(pickedFile.path);
+        screen = "result";
+        result = "Wond geanalyseerd: unknown";
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
+      home: Scaffold(
+        appBar: AppBar(title: Text("Wondherkenning")),
+        body: Center(
+          child: screen == "home"
+              ? homeScreen()
+              : screen == "upload"
+              ? uploadScreen()
+              : resultScreen(),
+        ),
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
-}
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-  void _decrementCounter(){
-    setState(() {
-      _counter--;
-    });
-  }
-  void _resetCounter(){
-    setState(() {
-      _counter = 0;
-    });
+  Widget homeScreen() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Icon(Icons.home, size: 80, color: Colors.blue),
+        SizedBox(height: 20),
+        Text("Welkom bij de Wondherkenningsapplicatie", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+        SizedBox(height: 10),
+        Text("Upload een afbeelding om de wond te analyseren."),
+        SizedBox(height: 20),
+        ElevatedButton(
+          onPressed: () => setState(() => screen = "upload"),
+          child: Text("Start Analyse"),
+        ),
+      ],
+    );
   }
 
-  @override
-  Widget build(BuildContext context) {
-
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-          ],
+  Widget uploadScreen() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Icon(Icons.upload, size: 80, color: Colors.blue),
+        SizedBox(height: 20),
+        Text("Upload een afbeelding"),
+        SizedBox(height: 10),
+        ElevatedButton(
+          onPressed: pickImage,
+          child: Text("Kies een afbeelding"),
         ),
-      ),
-       floatingActionButton: Row(
-         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-         children: [
-       FloatingActionButton(
-         onPressed: _decrementCounter,
-         tooltip: 'Decrement',
-         child: const Icon(Icons.remove),
+        SizedBox(height: 10),
+        ElevatedButton(
+          onPressed: () => setState(() => screen = "home"),
+          child: Text("Terug naar Home"),
         ),
-           const SizedBox(width: 10),
-           FloatingActionButton(
-               onPressed: _resetCounter,
-               tooltip: 'Reset counter',
-               child: const Icon(Icons.refresh)
-           ),
+      ],
+    );
+  }
 
-         const SizedBox(width: 10), // distance between buttons
-        FloatingActionButton(
-          onPressed: _incrementCounter,
-          tooltip: 'Increment',
-          child: const Icon(Icons.add),
+  Widget resultScreen() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Icon(Icons.check_circle, size: 80, color: Colors.green),
+        SizedBox(height: 20),
+        Text("Analyse Resultaat", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+        SizedBox(height: 10),
+        if (image != null) Image.file(image!, height: 200),
+        SizedBox(height: 10),
+        Text(result ?? "Geen resultaat"),
+        SizedBox(height: 20),
+        ElevatedButton(
+          onPressed: () => setState(() => screen = "home"),
+          child: Text("Opnieuw analyseren"),
         ),
-
-       ],
-      )
-    );// This trailing comma makes auto-formatting nicer for build methods
+      ],
+    );
   }
 }
