@@ -5,6 +5,7 @@ import 'package:wound_recognition_frontend/constants/app_strings.dart';
 
 
 class ResultPage extends StatefulWidget {
+  const ResultPage({super.key});
   // @TODO add the super key
   State<ResultPage> createState() => _ResultPageState();
 }
@@ -12,9 +13,9 @@ class ResultPage extends StatefulWidget {
 class _ResultPageState extends State<ResultPage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: const CustomAppBar(title: 'Upload pagina'),
-      body: const Center(child: Text('Result Page Content')),
+    return const Scaffold(
+      appBar: const CustomAppBar(title: AppStrings.resultPage),
+      body: const Center(child: Text('placeholder')),
     );
   }
 }

@@ -10,15 +10,15 @@ final GoRouter appRouter = GoRouter(
   routes: [
     GoRoute(
       path: AppConstants.homeURI,
-      builder: (context, state) => HomePage(),
+      builder: (context, state) => const HomePage(),
     ),
     GoRoute(
       path: AppConstants.uploadURI,
-      builder: (context, state) => UploadPage(),
+      builder: (context, state) => const UploadPage(),
     ),
     GoRoute(
       path: AppConstants.resultURI,
-      builder: (context, state) => ResultPage(),
+      builder: (context, state) => const ResultPage(),
     ),
   ],
 );

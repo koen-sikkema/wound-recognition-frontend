@@ -5,7 +5,7 @@ import 'package:wound_recognition_frontend/constants/app_constants.dart';
 import 'package:wound_recognition_frontend/constants/app_strings.dart';
 
 class UploadPage extends StatefulWidget {
-  // @TODO add the super key
+  const UploadPage({super.key});
   State<UploadPage> createState() => _UploadPageState();
 }
 class _UploadPageState extends State<UploadPage> {
@@ -21,7 +21,7 @@ class _UploadPageState extends State<UploadPage> {
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)
             ),
             ElevatedButton(
-              onPressed: () => context.go('/'),
+              onPressed: () => context.go(AppConstants.uploadURI),
               child: const Text(AppStrings.uploadButtonText),
             ),
           ],

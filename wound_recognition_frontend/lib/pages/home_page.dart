@@ -26,13 +26,13 @@ class _HomePageState extends State<HomePage> {
             ),
             ElevatedButton(
               onPressed: () => context.go(AppConstants.uploadURI),
-              child:  Text(AppStrings.uploadPage),
+              child:  const Text(AppStrings.uploadPage),
 
             ),
             const SizedBox(height: 5),
             ElevatedButton(
               onPressed: () => context.go(AppConstants.resultURI),
-                child:  Text(AppStrings.resultPage),
+                child:  const Text(AppStrings.resultPage),
             ),
           ],
         ),
