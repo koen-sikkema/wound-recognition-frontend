@@ -1,21 +1,23 @@
-import 'package:flutter/material.dart';
+
 import 'package:go_router/go_router.dart';
-import '../pages/homePage.dart';
-import '../pages/uploadPage.dart';
-import '../pages/resultPage.dart';
+import '../pages/home_page.dart';
+import '../pages/upload_page.dart';
+import '../pages/result_page.dart';
+import '../constants/app_constants.dart';
+import '../constants/app_strings.dart';
 
 final GoRouter appRouter = GoRouter(
   routes: [
     GoRoute(
-      path: '/',
+      path: AppConstants.homeURI,
       builder: (context, state) => HomePage(),
     ),
     GoRoute(
-      path: '/upload',
+      path: AppConstants.uploadURI,
       builder: (context, state) => UploadPage(),
     ),
     GoRoute(
-      path: '/result',
+      path: AppConstants.resultURI,
       builder: (context, state) => ResultPage(),
     ),
   ],

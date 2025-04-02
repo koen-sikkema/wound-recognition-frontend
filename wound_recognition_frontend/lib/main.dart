@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:go_router/go_router.dart';
-import 'routes/appRouter.dart'; // Importeer de router
+import 'routes/app_router.dart'; // Importeer de router
 
 void main() {
   runApp(WoundRecognitionApp());
