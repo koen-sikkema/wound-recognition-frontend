@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:wound_recognition_frontend/widgets/custom_app_bar.dart';
+import 'package:wound_recognition_frontend/constants/app_constants.dart';
+import 'package:wound_recognition_frontend/constants/app_strings.dart';
 
 
 class ResultPage extends StatefulWidget {
+  // @TODO add the super key
   State<ResultPage> createState() => _ResultPageState();
 }
 
