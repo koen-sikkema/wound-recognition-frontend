@@ -43,16 +43,16 @@ class _UploadPageState extends State<UploadPage> {
 
     var request = http.MultipartRequest(
       'POST',
-      Uri.parse('http://127.0.0.1:8000/upload'), // 🔥 Pas dit aan naar jouw backend URL
+      Uri.parse('http://127.0.0.1:8000/upload'),
     );
 
     if (kIsWeb) {
       // Web: Gebruik MultipartFile met bytes
       request.files.add(
         http.MultipartFile.fromBytes(
-          'File(...)', // Zorg ervoor dat dit overeenkomt met je backend parameter
+          'File(...)',
           _webImage!,
-          filename: 'image.png', // Stel een naam in voor het bestand
+          filename: 'image.png',
         ),
       );
     } else {
