@@ -7,8 +7,9 @@ void main() {
 }
 
 class WoundRecognitionApp extends StatefulWidget {
+  const WoundRecognitionApp({super.key});
   @override
-  _WoundRecognitionAppState createState() => _WoundRecognitionAppState();
+  State<WoundRecognitionApp> createState() => _WoundRecognitionAppState();
 }
 
 class _WoundRecognitionAppState extends State<WoundRecognitionApp> {

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
 import 'dart:io';
 import 'package:http/http.dart' as http;
-import 'package:flutter/foundation.dart'; // Nodig voor kIsWeb
+import 'package:flutter/foundation.dart';
 
 class UploadPage extends StatefulWidget {
   const UploadPage({super.key});
@@ -15,7 +15,7 @@ class _UploadPageState extends State<UploadPage> {
   File? _selectedImage; // Voor Mobile
   bool _isUploading = false;
 
-  /// 📌 Afbeelding kiezen (compatibel voor Web en Mobiel)
+
   Future<void> pickImage() async {
     final result = await FilePicker.platform.pickFiles(
       type: FileType.image,
@@ -35,7 +35,6 @@ class _UploadPageState extends State<UploadPage> {
     }
   }
 
-  /// 📌 Afbeelding uploaden naar backend
   Future<void> uploadImage() async {
     if (_webImage == null && _selectedImage == null) return;
 
@@ -43,15 +42,16 @@ class _UploadPageState extends State<UploadPage> {
 
     var request = http.MultipartRequest(
       'POST',
-      Uri.parse('http://127.0.0.1:8000/upload'),
+      Uri.parse('http://127.0.0.1:8000/upload/'),
     );
 
     if (kIsWeb) {
       // Web: Gebruik MultipartFile met bytes
       request.files.add(
         http.MultipartFile.fromBytes(
-          'File(...)',
+          'file',
           _webImage!,
+          // @TODO change to file name or chosen filename
           filename: 'image.png',
         ),
       );
@@ -59,7 +59,7 @@ class _UploadPageState extends State<UploadPage> {
       // Mobiel: Gebruik File met het bestandspad
       request.files.add(
         await http.MultipartFile.fromPath(
-          'file', // Zorg ervoor dat dit overeenkomt met je backend parameter
+          'file',
           _selectedImage!.path,
         ),
       );
