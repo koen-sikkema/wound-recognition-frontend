@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'routes/app_router.dart'; // Importeer de router
 
 void main() {
-  runApp(WoundRecognitionApp());
+  runApp(const WoundRecognitionApp());
 }
 
 class WoundRecognitionApp extends StatefulWidget {
