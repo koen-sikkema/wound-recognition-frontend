@@ -3,6 +3,7 @@ import 'package:file_picker/file_picker.dart';
 import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:flutter/foundation.dart';
+import 'package:wound_recognition_frontend/constants/app_constants.dart';
 
 class UploadPage extends StatefulWidget {
   const UploadPage({super.key});
@@ -11,6 +12,7 @@ class UploadPage extends StatefulWidget {
 }
 
 class _UploadPageState extends State<UploadPage> {
+  // initialize variables
   Uint8List? _webImage; // Voor Web
   File? _selectedImage; // Voor Mobile
   bool _isUploading = false;
@@ -25,10 +27,10 @@ class _UploadPageState extends State<UploadPage> {
     if (result != null) {
       setState(() {
         if (kIsWeb) {
-          // Web: Gebruik bytes (Uint8List)
+          // Web: uses bytes
           _webImage = result.files.first.bytes;
         } else {
-          // Mobiel: Gebruik File
+          // Mobiel: uses path
           _selectedImage = File(result.files.single.path!);
         }
       });
@@ -42,8 +44,9 @@ class _UploadPageState extends State<UploadPage> {
 
     var request = http.MultipartRequest(
       'POST',
-      Uri.parse('http://127.0.0.1:8000/upload/'),
+      Uri.parse(AppConstants.serverURI),
     );
+
 
     if (kIsWeb) {
       // Web: Gebruik MultipartFile met bytes
