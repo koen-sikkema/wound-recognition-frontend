@@ -1,10 +1,10 @@
 
 import 'package:go_router/go_router.dart';
 import '../pages/home_page.dart';
-import '../pages/upload_page.dart';
 import '../pages/result_page.dart';
 import '../constants/app_constants.dart';
 import '../constants/app_strings.dart';
+import '../pages/upload_page.dart';
 
 final GoRouter appRouter = GoRouter(
   routes: [
