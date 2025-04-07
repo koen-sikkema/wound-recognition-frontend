@@ -3,10 +3,8 @@ import 'package:wound_recognition_frontend/factories/IImage_picker_factory.dart'
 import 'package:wound_recognition_frontend/factories/uploader_factory.dart';
 import 'package:wound_recognition_frontend/services/image_picker_service/picked_image.dart';
 import 'package:wound_recognition_frontend/services/upload_service/Iuploader.dart';
-import '../../constants/app_constants.dart';
-import 'package:http/http.dart' as http;
 import '../services/image_picker_service/IImage_picker.dart';
-import '../services/upload_service/uploader.dart';
+
 
 class UploadPage extends StatefulWidget {
   const UploadPage({super.key});
@@ -63,14 +61,14 @@ class _UploadPageState extends State<UploadPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            // 📌 Afbeelding kiezen knop
+            // Choose image button
             ElevatedButton(
               onPressed: _chooseImage,
               child: const Text("Kies een afbeelding"),
             ),
             SizedBox(height: 20),
 
-            // 📌 Bestandsnaam invoerveld
+            // File name
             TextField(
               controller: _filenameController,
               decoration: const InputDecoration(
@@ -80,7 +78,7 @@ class _UploadPageState extends State<UploadPage> {
             ),
             SizedBox(height: 20),
 
-            // 📌 Afbeelding preview
+            // Image preview
             _selectedImage != null
                 ? Container(
               height: 200,

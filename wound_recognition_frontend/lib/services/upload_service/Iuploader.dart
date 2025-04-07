@@ -8,9 +8,5 @@ abstract class Iuploader {
       String filename,
       BuildContext context,
       );
-  Future<void> responseHandler(
-      BuildContext context,
-      int statusCode
-      );
 }
 
