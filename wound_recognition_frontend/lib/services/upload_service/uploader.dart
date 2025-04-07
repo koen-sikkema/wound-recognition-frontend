@@ -53,7 +53,7 @@ class Uploader implements Iuploader {
         );
       } else {
         print("Upload failed, statuscode: ${response.statusCode}");
-        // Toon foutbericht
+        // show  error message
         ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text("Upload mislukt ❌")),
         );

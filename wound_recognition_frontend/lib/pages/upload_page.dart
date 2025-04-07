@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:uuid/uuid.dart';
 import 'package:wound_recognition_frontend/factories/IImage_picker_factory.dart';
 import 'package:wound_recognition_frontend/factories/uploader_factory.dart';
 import 'package:wound_recognition_frontend/services/image_picker_service/picked_image.dart';
 import 'package:wound_recognition_frontend/services/upload_service/Iuploader.dart';
 import '../services/image_picker_service/IImage_picker.dart';
+import 'package:intl/intl.dart';
+
+
 
 
 class UploadPage extends StatefulWidget {
@@ -18,7 +22,6 @@ class _UploadPageState extends State<UploadPage> {
   Iuploader? _uploader;
   IImagePicker? _imagePicker;
   PickedImage? _selectedImage;
-  String _filename = '';
   final TextEditingController _filenameController = TextEditingController();
 
   @override
@@ -36,6 +39,7 @@ class _UploadPageState extends State<UploadPage> {
   }
 
   void _chooseImage() async {
+
     final chosen = await _imagePicker?.pickImage();
     if (chosen != null) {
       setState(() {
@@ -48,10 +52,10 @@ class _UploadPageState extends State<UploadPage> {
     // Verkrijg de filename van de tekstcontroller, of gebruik een standaard naam
     String filename = _filenameController.text.isNotEmpty
         ? '${_filenameController.text}.jpg'
-        : 'default_filename.jpg';
+        : 'date_${DateFormat('dd_MMMM_yyyy_HHmm').format(DateTime.now())}u_${Uuid().v4()}.jpg';;
     await _uploader?.uploadImage(_selectedImage, filename, context);
   }
-
+  // String filename = DateFormat('dd_MM_yyyy_HH:mm').format(DateTime.now()) + '.jpg';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
