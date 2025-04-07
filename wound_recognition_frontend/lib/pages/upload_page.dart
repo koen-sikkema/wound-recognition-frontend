@@ -1,136 +1,108 @@
 import 'package:flutter/material.dart';
-import 'package:file_picker/file_picker.dart';
-import 'dart:io';
+import 'package:wound_recognition_frontend/factories/IImage_picker_factory.dart';
+import 'package:wound_recognition_frontend/factories/uploader_factory.dart';
+import 'package:wound_recognition_frontend/services/image_picker_service/picked_image.dart';
+import 'package:wound_recognition_frontend/services/upload_service/Iuploader.dart';
+import '../../constants/app_constants.dart';
 import 'package:http/http.dart' as http;
-import 'package:flutter/foundation.dart';
-import 'package:wound_recognition_frontend/constants/app_constants.dart';
+import '../services/image_picker_service/IImage_picker.dart';
+import '../services/upload_service/uploader.dart';
 
 class UploadPage extends StatefulWidget {
   const UploadPage({super.key});
+
   @override
   State<UploadPage> createState() => _UploadPageState();
 }
 
 class _UploadPageState extends State<UploadPage> {
   // initialize variables
-  Uint8List? _webImage; // Voor Web
-  File? _selectedImage; // Voor Mobile
-  bool _isUploading = false;
+  Iuploader? _uploader;
+  IImagePicker? _imagePicker;
+  PickedImage? _selectedImage;
+  String _filename = '';
+  final TextEditingController _filenameController = TextEditingController();
 
+  @override
+  void initState() {
+    super.initState();
+    _uploader = getUploader();
+    _imagePicker = getImagePicker();
 
-  Future<void> pickImage() async {
-    final result = await FilePicker.platform.pickFiles(
-      type: FileType.image,
-      allowMultiple: false,
-    );
+  }
 
-    if (result != null) {
+  @override
+  void dispose() {
+    _filenameController.dispose();
+    super.dispose();
+  }
+
+  void _chooseImage() async {
+    final chosen = await _imagePicker?.pickImage();
+    if (chosen != null) {
       setState(() {
-        if (kIsWeb) {
-          // Web: uses bytes
-          _webImage = result.files.first.bytes;
-        } else {
-          // Mobiel: uses path
-          _selectedImage = File(result.files.single.path!);
-        }
+        _selectedImage = chosen;
       });
     }
   }
 
-  Future<void> uploadImage() async {
-    if (_webImage == null && _selectedImage == null) return;
-
-    setState(() => _isUploading = true);
-
-    var request = http.MultipartRequest(
-      'POST',
-      Uri.parse(AppConstants.serverURI),
-    );
-
-
-    if (kIsWeb) {
-      // Web: Gebruik MultipartFile met bytes
-      request.files.add(
-        http.MultipartFile.fromBytes(
-          'file',
-          _webImage!,
-          // @TODO change to file name or name chosen by user
-          filename: 'image.png',
-        ),
-      );
-    } else {
-      // Mobiel: Gebruik File met het bestandspad
-      request.files.add(
-        await http.MultipartFile.fromPath(
-          'file',
-          _selectedImage!.path,
-        ),
-      );
-    }
-
-    var response = await request.send();
-
-    if (response.statusCode == 200) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: const Text("Afbeelding succesvol geüpload! 🚀")),
-      );
-      setState(() {
-        _selectedImage = null;
-        _webImage = null;
-      });
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: const Text("Upload mislukt ❌")),
-      );
-    }
-
-    setState(() => _isUploading = false);
+  void _uploadImage() async {
+    // Verkrijg de filename van de tekstcontroller, of gebruik een standaard naam
+    String filename = _filenameController.text.isNotEmpty
+        ? '${_filenameController.text}.jpg'
+        : 'default_filename.jpg';
+    await _uploader?.uploadImage(_selectedImage, filename, context);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Afbeelding Uploaden")),
+      appBar: AppBar(title: const Text("Afbeelding Uploaden")),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            // 📌 Afbeelding kiezen knop
+            ElevatedButton(
+              onPressed: _chooseImage,
+              child: const Text("Kies een afbeelding"),
+            ),
+            SizedBox(height: 20),
+
+            // 📌 Bestandsnaam invoerveld
+            TextField(
+              controller: _filenameController,
+              decoration: const InputDecoration(
+                labelText: "Bestandsnaam",
+                hintText: "Vul een naam in voor het bestand",
+              ),
+            ),
+            SizedBox(height: 20),
+
             // 📌 Afbeelding preview
-            _webImage != null || _selectedImage != null
+            _selectedImage != null
                 ? Container(
               height: 200,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
                 border: Border.all(color: Colors.grey),
               ),
-              child: kIsWeb
-                  ? Image.memory(_webImage!, fit: BoxFit.cover)
-                  : Image.file(_selectedImage!, fit: BoxFit.cover),
+              child: _selectedImage!.toImageWidget(),
             )
-                : Text("Geen afbeelding geselecteerd"),
+                : const Text("Geen afbeelding geselecteerd"),
 
             SizedBox(height: 20),
 
-            // 📌 Knoppen
+            // 📌 Upload knop
             ElevatedButton(
-              onPressed: pickImage,
-              child: Text("Afbeelding kiezen"),
+              onPressed: _selectedImage != null ? _uploadImage : null,
+              child: const Text("Upload afbeelding"),
             ),
-
-            if (_webImage != null || _selectedImage != null) ...[
-              SizedBox(height: 10),
-              ElevatedButton(
-                onPressed: _isUploading ? null : uploadImage,
-                style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
-                child: _isUploading
-                    ? CircularProgressIndicator(color: Colors.white)
-                    : Text("Uploaden"),
-              ),
-            ],
           ],
         ),
       ),
     );
   }
 }
+

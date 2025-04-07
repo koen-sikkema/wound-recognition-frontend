@@ -1,8 +1,10 @@
 
 
 import 'package:file_picker/file_picker.dart';
-import 'package:wound_recognition_frontend/services/IImage_picker.dart';
-import 'package:wound_recognition_frontend/services/picked_image.dart';
+import 'package:wound_recognition_frontend/services/image_picker_service/IImage_picker.dart';
+import 'package:wound_recognition_frontend/services/image_picker_service/picked_image.dart';
+
+import 'IImage_picker.dart';
 
 class WebImagePicker implements IImagePicker{
   @override

@@ -9,15 +9,15 @@ import '../pages/upload_page.dart';
 final GoRouter appRouter = GoRouter(
   routes: [
     GoRoute(
-      path: AppConstants.homeURI,
+      path: AppConstants.HOMEURI,
       builder: (context, state) => const HomePage(),
     ),
     GoRoute(
-      path: AppConstants.uploadURI,
+      path: AppConstants.UPLOADURI,
       builder: (context, state) => const UploadPage(),
     ),
     GoRoute(
-      path: AppConstants.resultURI,
+      path: AppConstants.RESULTURI,
       builder: (context, state) => const ResultPage(),
     ),
   ],
