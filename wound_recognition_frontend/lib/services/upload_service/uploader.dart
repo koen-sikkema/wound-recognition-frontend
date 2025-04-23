@@ -5,23 +5,30 @@ import '../../constants/app_constants.dart';
 import '../image_picker_service/picked_image.dart';
 import 'Iuploader.dart';
 
-class Uploader implements Iuploader {
+class Uploader implements Iuploader
+{
 
   @override
-  Future<void> uploadImage(PickedImage? pickedImage, String? filename, BuildContext context) async {
-    try {
+  Future<void> uploadImage(PickedImage? pickedImage, String? filename, BuildContext context) async
+  {
+    try
+    {
       final bytes = await pickedImage?.getBytes();
 
-      if (bytes == null) {
+      if (bytes == null)
+      {
         print("No image bytes available.");
         throw Exception("Image bytes: null");
       }
 
       print("Bytes from image received: ${bytes.length} bytes");
 
-      var request = http.MultipartRequest(
+      var request = http.MultipartRequest
+        (
         'POST',
-        Uri.parse(AppConstants.SERVERURI),
+        Uri.parse(
+            AppConstants.SERVERURI
+        ),
       );
 
       request.files.add(
@@ -43,21 +50,29 @@ class Uploader implements Iuploader {
       print("Response body: $responseBody");
 
       // Process the response based on the status code
-      if (response.statusCode == 200) {
+      if (response.statusCode == 200)
+      {
         print("Upload successful!");
-        ScaffoldMessenger.of(context).showSnackBar(
+        ScaffoldMessenger.of(context).showSnackBar
+          (
             const SnackBar(content: Text("Afbeelding succesvol geüpload! 🚀"))
         );
-      } else {
+      } else
+      {
         print("Upload failed, statuscode: ${response.statusCode}");
+
         ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(content: Text("Upload mislukt ❌"))
         );
       }
     } catch (e) {
       print("Uploading failed: $e");
+
       ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text("Er is een fout opgetreden bij het uploaden."))
+          const SnackBar(
+              content: Text("Er is een fout opgetreden bij het uploaden."
+              )
+          )
       );
     }
   }

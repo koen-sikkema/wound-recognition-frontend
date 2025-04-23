@@ -11,19 +11,27 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends State<HomePage>
+{
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context)
+  {
     return Scaffold(
-      appBar: const CustomAppBar(title: AppStrings.homePage), // Still const
+      appBar: const CustomAppBar(
+          title: AppStrings.homePage
+      ),
+
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             const Text(
               AppStrings.uploadImageText,
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                  fontSize: 18, fontWeight: FontWeight.bold
+              ),
             ),
+
             ElevatedButton(
               onPressed: () => context.go(AppConstants.UPLOADURI),
               child:  const Text(AppStrings.uploadPage),

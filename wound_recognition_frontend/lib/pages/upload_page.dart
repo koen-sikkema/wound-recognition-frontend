@@ -6,18 +6,24 @@ import 'package:wound_recognition_frontend/services/image_picker_service/picked_
 import 'package:wound_recognition_frontend/services/upload_service/Iuploader.dart';
 import '../services/image_picker_service/IImage_picker.dart';
 import 'package:intl/intl.dart';
+import '../widgets/image_preview.dart';
+import '../widgets/upload_button.dart';
+import '../widgets/filename_textfield.dart';
 
 
 
 
-class UploadPage extends StatefulWidget {
+
+class UploadPage extends StatefulWidget
+{
   const UploadPage({super.key});
 
   @override
   State<UploadPage> createState() => _UploadPageState();
 }
 
-class _UploadPageState extends State<UploadPage> {
+class _UploadPageState extends State<UploadPage>
+{
   // initialize variables
   Iuploader? _uploader;
   IImagePicker? _imagePicker;
@@ -25,7 +31,8 @@ class _UploadPageState extends State<UploadPage> {
   final TextEditingController _filenameController = TextEditingController();
 
   @override
-  void initState() {
+  void initState()
+  {
     super.initState();
     _uploader = getUploader();
     _imagePicker = getImagePicker();
@@ -33,73 +40,73 @@ class _UploadPageState extends State<UploadPage> {
   }
 
   @override
-  void dispose() {
+  void dispose()
+  {
     _filenameController.dispose();
     super.dispose();
   }
 
-  void _chooseImage() async {
-
+  void _chooseImage() async
+  {
     final chosen = await _imagePicker?.pickImage();
-    if (chosen != null) {
-      setState(() {
+    if (chosen != null)
+    {
+      setState(()
+      {
         _selectedImage = chosen;
       });
     }
   }
 
   void _uploadImage() async {
-    // Verkrijg de filename van de tekstcontroller, of gebruik een standaard naam
-    String filename = _filenameController.text.isNotEmpty
-        ? '${_filenameController.text}.jpg'
-        : 'date_${DateFormat('dd_MMMM_yyyy_HHmm').format(DateTime.now())}u_${Uuid().v4()}.jpg';;
+    final hasCustomName = _filenameController.text.trim().isNotEmpty;
+
+    final String filename = hasCustomName
+        ? '${_filenameController.text.trim()}.jpg'
+        : _generateDefaultFilename();
+
     await _uploader?.uploadImage(_selectedImage, filename, context);
   }
-  // String filename = DateFormat('dd_MM_yyyy_HH:mm').format(DateTime.now()) + '.jpg';
+
+  String _generateDefaultFilename() {
+    final timestamp = DateFormat('dd_MMMM_yyyy_HHmm').format(DateTime.now());
+    final uuid = const Uuid().v4();
+    return 'date_${timestamp}u_$uuid.jpg'; // String filename = DateFormat('dd_MM_yyyy_HH:mm').format(DateTime.now()) + '.jpg';
+  }
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context)
+  {
     return Scaffold(
-      appBar: AppBar(title: const Text("Afbeelding Uploaden")),
+      appBar: AppBar(
+          title: const Text("Afbeelding Uploaden")
+      ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            // Choose image button
+
             ElevatedButton(
               onPressed: _chooseImage,
               child: const Text("Kies een afbeelding"),
             ),
-            SizedBox(height: 20),
 
-            // File name
-            TextField(
+            FilenameTextField(
               controller: _filenameController,
-              decoration: const InputDecoration(
-                labelText: "Bestandsnaam",
-                hintText: "Vul een naam in voor het bestand",
-              ),
             ),
-            SizedBox(height: 20),
 
-            // Image preview
-            _selectedImage != null
-                ? Container(
-              height: 200,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                border: Border.all(color: Colors.grey),
-              ),
-              child: _selectedImage!.toImageWidget(),
-            )
-                : const Text("Geen afbeelding geselecteerd"),
+            ImagePreview(
+                image: _selectedImage
+            ),
 
-            SizedBox(height: 20),
+            const SizedBox(
+                height: 20
+            ),
 
-            // 📌 Upload knop
-            ElevatedButton(
-              onPressed: _selectedImage != null ? _uploadImage : null,
-              child: const Text("Upload afbeelding"),
+            UploadButton(
+              onPressed: _uploadImage,
+              enabled: _selectedImage != null
+              ,
             ),
           ],
         ),

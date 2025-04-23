@@ -6,16 +6,21 @@ import 'package:wound_recognition_frontend/services/image_picker_service/picked_
 
 import 'IImage_picker.dart';
 
-class WebImagePicker implements IImagePicker{
+class WebImagePicker implements IImagePicker
+{
   @override
-  Future<PickedImage?> pickImage() async {
+  Future<PickedImage?> pickImage() async
+  {
     final result = await FilePicker.platform.pickFiles(
       type: FileType.image,
       allowMultiple: false,
       withData: true, // for web
     );
-    if (result?.files.first.bytes != null){
-      return PickedImage(webBytes: result!.files.first.bytes!);
+    if (result?.files.first.bytes != null)
+    {
+      return PickedImage(
+          webBytes: result!.files.first.bytes!
+      );
     }
     return null;
   }
