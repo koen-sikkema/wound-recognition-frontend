@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:uuid/uuid.dart';
+import 'package:wound_recognition_frontend/constants/app_constants.dart';
 import 'package:wound_recognition_frontend/factories/IImage_picker_factory.dart';
 import 'package:wound_recognition_frontend/factories/uploader_factory.dart';
 import 'package:wound_recognition_frontend/services/image_picker_service/picked_image.dart';
@@ -9,10 +11,6 @@ import 'package:intl/intl.dart';
 import '../widgets/image_preview.dart';
 import '../widgets/upload_button.dart';
 import '../widgets/filename_textfield.dart';
-
-
-
-
 
 class UploadPage extends StatefulWidget
 {
@@ -28,6 +26,9 @@ class _UploadPageState extends State<UploadPage>
   Iuploader? _uploader;
   IImagePicker? _imagePicker;
   PickedImage? _selectedImage;
+  bool _isUploading = false;
+  bool _resultReady = false;
+  String? _resultFilename;
   final TextEditingController _filenameController = TextEditingController();
 
   @override
@@ -36,15 +37,14 @@ class _UploadPageState extends State<UploadPage>
     super.initState();
     _uploader = getUploader();
     _imagePicker = getImagePicker();
-
   }
 
-  @override
-  void dispose()
-  {
-    _filenameController.dispose();
-    super.dispose();
-  }
+  // @override
+  // void dispose()
+  // {
+  //   _filenameController.dispose();
+  //   super.dispose();
+  // }
 
   void _chooseImage() async
   {
@@ -59,20 +59,31 @@ class _UploadPageState extends State<UploadPage>
   }
 
   void _uploadImage() async {
+    setState(() {
+      _isUploading = true;
+      _resultReady = false;
+    });
     final hasCustomName = _filenameController.text.trim().isNotEmpty;
-
     final String filename = hasCustomName
         ? '${_filenameController.text.trim()}.jpg'
         : _generateDefaultFilename();
+    _resultFilename = filename;
 
     await _uploader?.uploadImage(_selectedImage, filename, context);
+    _pollForResult(filename);
+  }
+  void _pollForResult(String filename) async {
+    while(!_resultReady){
+      await Future.delayed(const Duration(seconds: 1));
+    }
   }
 
   String _generateDefaultFilename() {
     final timestamp = DateFormat('dd_MMMM_yyyy_HHmm').format(DateTime.now());
     final uuid = const Uuid().v4();
-    return 'date_${timestamp}u_$uuid.jpg'; // String filename = DateFormat('dd_MM_yyyy_HH:mm').format(DateTime.now()) + '.jpg';
+    return 'date_${timestamp}u_$uuid.jpg';// DateFormat('dd_MM_yyyy_HH:mm').format(DateTime.now()) + '.jpg';
   }
+
   @override
   Widget build(BuildContext context)
   {
@@ -103,10 +114,21 @@ class _UploadPageState extends State<UploadPage>
                 height: 20
             ),
 
+            // @todo refactor ugly code
+            _isUploading ?
+            const CircularProgressIndicator() :
+            !_resultReady ?
             UploadButton(
               onPressed: _uploadImage,
-              enabled: _selectedImage != null
-              ,
+              enabled: _selectedImage != null,
+            ):
+            ElevatedButton(
+              onPressed: () {
+                if (_resultFilename != null) {
+                  context.go(AppConstants.RESULTURI, extra: _selectedImage);
+                }
+              },
+              child: const Text("Toon resultaat!"),
             ),
           ],
         ),

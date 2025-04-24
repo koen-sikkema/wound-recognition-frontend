@@ -1,9 +1,9 @@
 
 import 'package:go_router/go_router.dart';
+import 'package:wound_recognition_frontend/services/image_picker_service/picked_image.dart';
 import '../pages/home_page.dart';
 import '../pages/result_page.dart';
 import '../constants/app_constants.dart';
-import '../constants/app_strings.dart';
 import '../pages/upload_page.dart';
 
 final GoRouter appRouter = GoRouter(
@@ -18,7 +18,15 @@ final GoRouter appRouter = GoRouter(
     ),
     GoRoute(
       path: AppConstants.RESULTURI,
-      builder: (context, state) => const ResultPage(),
+      builder: (context, state){
+        final image = state.extra as PickedImage;
+        return ResultPage(
+          image: image,
+          label: ,
+          confidence: ,
+        )
+      }
+
     ),
   ],
 );

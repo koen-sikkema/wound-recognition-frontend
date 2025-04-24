@@ -3,7 +3,6 @@ import '../services/image_picker_service/picked_image.dart';
 
 class ImagePreview extends StatelessWidget {
   final PickedImage? image;
-
   const ImagePreview({super.key, required this.image});
 
   @override
