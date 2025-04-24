@@ -11,6 +11,7 @@ import 'package:intl/intl.dart';
 import '../widgets/image_preview.dart';
 import '../widgets/upload_button.dart';
 import '../widgets/filename_textfield.dart';
+import 'package:wound_recognition_frontend/services/filename_helper.dart';
 
 class UploadPage extends StatefulWidget
 {
