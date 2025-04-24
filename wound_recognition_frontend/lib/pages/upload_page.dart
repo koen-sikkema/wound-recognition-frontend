@@ -39,14 +39,7 @@ class _UploadPageState extends State<UploadPage>
     _uploader = getUploader();
     _imagePicker = getImagePicker();
   }
-
-  // @override
-  // void dispose()
-  // {
-  //   _filenameController.dispose();
-  //   super.dispose();
-  // }
-
+  
   void _chooseImage() async
   {
     final chosen = await _imagePicker?.pickImage();
@@ -64,10 +57,7 @@ class _UploadPageState extends State<UploadPage>
       _isUploading = true;
       _resultReady = false;
     });
-    final hasCustomName = _filenameController.text.trim().isNotEmpty;
-    final String filename = hasCustomName
-        ? '${_filenameController.text.trim()}.jpg'
-        : _generateDefaultFilename();
+    final filename = FilenameHelper.getFinalFilename(_filenameController.text);
     _resultFilename = filename;
 
     await _uploader?.uploadImage(_selectedImage, filename, context);
@@ -77,12 +67,6 @@ class _UploadPageState extends State<UploadPage>
     while(!_resultReady){
       await Future.delayed(const Duration(seconds: 1));
     }
-  }
-
-  String _generateDefaultFilename() {
-    final timestamp = DateFormat('dd_MMMM_yyyy_HHmm').format(DateTime.now());
-    final uuid = const Uuid().v4();
-    return 'date_${timestamp}u_$uuid.jpg';// DateFormat('dd_MM_yyyy_HH:mm').format(DateTime.now()) + '.jpg';
   }
 
   @override
