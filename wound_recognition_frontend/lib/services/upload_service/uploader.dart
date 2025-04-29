@@ -27,7 +27,7 @@ class Uploader implements Iuploader
         (
         'POST',
         Uri.parse(
-            AppConstants.SERVERURI
+            AppConstants.UPLOADURI
         ),
       );
 
@@ -40,14 +40,13 @@ class Uploader implements Iuploader
       );
 
       // Send request
-      var response = await request.send();
+      var streamedResponse  = await request.send();
 
       // Read the response body
-      String responseBody = await response.stream.bytesToString();
-
+      final response = await http.Response.fromStream(streamedResponse);
       // Log the response status and body (debugging purposes)
       print("Response status: ${response.statusCode}");
-      print("Response body: $responseBody");
+      print("Response body: $response");
 
       // Process the response based on the status code
       if (response.statusCode == 200)

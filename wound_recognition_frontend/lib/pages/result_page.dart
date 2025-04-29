@@ -24,7 +24,7 @@ class ResultPage extends StatelessWidget
   Widget build(BuildContext context)
   {
     return Scaffold(
-      appBar: CustomAppBar(
+      appBar:  const CustomAppBar(
           title: AppConstants.RESULT
       ),
       body: Padding(

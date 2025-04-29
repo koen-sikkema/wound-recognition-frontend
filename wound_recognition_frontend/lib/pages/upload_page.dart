@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:uuid/uuid.dart';
 import 'package:wound_recognition_frontend/constants/app_constants.dart';
-import 'package:wound_recognition_frontend/factories/IImage_picker_factory.dart';
-import 'package:wound_recognition_frontend/factories/uploader_factory.dart';
+import 'package:wound_recognition_frontend/factories/factories.dart';
 import 'package:wound_recognition_frontend/services/image_picker_service/picked_image.dart';
+import 'package:wound_recognition_frontend/services/polling_service.dart';
 import 'package:wound_recognition_frontend/services/upload_service/Iuploader.dart';
 import '../services/image_picker_service/IImage_picker.dart';
-import 'package:intl/intl.dart';
 import '../widgets/image_preview.dart';
 import '../widgets/upload_button.dart';
 import '../widgets/filename_textfield.dart';
@@ -27,6 +25,8 @@ class _UploadPageState extends State<UploadPage>
   Iuploader? _uploader;
   IImagePicker? _imagePicker;
   PickedImage? _selectedImage;
+  PollingService? _resultChecker;
+
   bool _isUploading = false;
   bool _resultReady = false;
   String? _resultFilename;
@@ -38,8 +38,9 @@ class _UploadPageState extends State<UploadPage>
     super.initState();
     _uploader = getUploader();
     _imagePicker = getImagePicker();
+    _resultChecker = getResultChecker();
   }
-  
+
   void _chooseImage() async
   {
     final chosen = await _imagePicker?.pickImage();
@@ -57,15 +58,25 @@ class _UploadPageState extends State<UploadPage>
       _isUploading = true;
       _resultReady = false;
     });
+
     final filename = FilenameHelper.getFinalFilename(_filenameController.text);
     _resultFilename = filename;
 
     await _uploader?.uploadImage(_selectedImage, filename, context);
     _pollForResult(filename);
   }
-  void _pollForResult(String filename) async {
-    while(!_resultReady){
-      await Future.delayed(const Duration(seconds: 1));
+
+  void _pollForResult(String filename) async
+  {
+    while (!_resultReady)
+    {
+      var result = await _resultChecker!.polling(filename);
+
+      if (result) {
+        setState(() {
+          _resultReady = true;
+        });
+      }
     }
   }
 
