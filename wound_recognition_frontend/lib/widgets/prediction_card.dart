@@ -24,12 +24,12 @@ class PredictionCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            ImagePreview(image: image),
             const SizedBox(height: 16),
             Text(
               'Bestandsnaam: ${prediction.filename}',
               style: Theme.of(context).textTheme.bodyLarge,
             ),
+            ImagePreview(image: image),
             const SizedBox(height: 8),
             Text(
               'Label: ${prediction.label}',
