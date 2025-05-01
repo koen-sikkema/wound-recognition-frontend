@@ -5,7 +5,7 @@ import 'package:flutter/foundation.dart'; // voor kIsWeb
 import 'package:wound_recognition_frontend/services/image_picker_service/IImage_picker.dart';
 import 'package:wound_recognition_frontend/services/image_picker_service/web_image_picker.dart';
 import 'package:wound_recognition_frontend/services/image_picker_service/mobile_image_picker.dart';
-import 'package:wound_recognition_frontend/services/polling_service.dart';
+import 'package:wound_recognition_frontend/services/prediction_service/polling_prediction_service.dart';
 
 
 Iuploader getUploader(){
@@ -18,7 +18,7 @@ IImagePicker getImagePicker() {
     return MobileImagePicker();
   }
 }
-PollingService getResultChecker(){
-  return PollingService();
+PredictionService getResultChecker(){
+  return PredictionService();
 }
 

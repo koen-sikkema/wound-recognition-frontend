@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../services/image_picker_service/picked_image.dart';
 
 class UploadButton extends StatelessWidget {
   final VoidCallback onPressed;

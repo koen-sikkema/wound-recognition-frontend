@@ -5,6 +5,7 @@ import '../pages/home_page.dart';
 import '../pages/result_page.dart';
 import '../constants/app_constants.dart';
 import '../pages/upload_page.dart';
+import '../routes/result_page_args.dart';
 
 final GoRouter appRouter = GoRouter(
   routes: [
@@ -16,16 +17,15 @@ final GoRouter appRouter = GoRouter(
       path: AppConstants.UPLOADROUTE,
       builder: (context, state) => const UploadPage(),
     ),
-    // GoRoute(
-    //   path: AppConstants.RESULTURI,
-    //   builder: (context, state){
-    //     final image = state.extra as PickedImage;
-    //     return ResultPage(
-    //       image: image,
-    //       label: ,
-    //       confidence: ,
-    //     )
-    //   }
-    // ),
+    GoRoute(
+      path: AppConstants.RESULTROUTE,
+      builder: (context, state){
+        final args = state.extra as ResultPageArgs;
+        return ResultPage(
+            image: args.image,
+            filename: args.filename
+        );
+      }
+    ),
   ],
 );

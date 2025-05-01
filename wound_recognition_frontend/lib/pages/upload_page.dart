@@ -3,8 +3,9 @@ import 'package:go_router/go_router.dart';
 import 'package:wound_recognition_frontend/constants/app_constants.dart';
 import 'package:wound_recognition_frontend/factories/factories.dart';
 import 'package:wound_recognition_frontend/services/image_picker_service/picked_image.dart';
-import 'package:wound_recognition_frontend/services/polling_service.dart';
+import 'package:wound_recognition_frontend/services/prediction_service/polling_prediction_service.dart';
 import 'package:wound_recognition_frontend/services/upload_service/Iuploader.dart';
+import '../routes/result_page_args.dart';
 import '../services/image_picker_service/IImage_picker.dart';
 import '../widgets/image_preview.dart';
 import '../widgets/upload_button.dart';
@@ -25,7 +26,7 @@ class _UploadPageState extends State<UploadPage>
   Iuploader? _uploader;
   IImagePicker? _imagePicker;
   PickedImage? _selectedImage;
-  PollingService? _resultChecker;
+  PredictionService? _resultChecker;
 
   bool _isUploading = false;
   bool _resultReady = false;
@@ -75,6 +76,7 @@ class _UploadPageState extends State<UploadPage>
       if (result) {
         setState(() {
           _resultReady = true;
+          _isUploading = false;
         });
       }
     }
@@ -121,7 +123,10 @@ class _UploadPageState extends State<UploadPage>
             ElevatedButton(
               onPressed: () {
                 if (_resultFilename != null) {
-                  context.go(AppConstants.RESULTURI, extra: _selectedImage);
+                  context.go(AppConstants.RESULTROUTE,
+                    extra: ResultPageArgs(
+                        image: _selectedImage!,
+                        filename: _resultFilename!),);
                 }
               },
               child: const Text("Toon resultaat!"),

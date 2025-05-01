@@ -1,11 +1,12 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:wound_recognition_frontend/constants/app_constants.dart';
+import 'prediction.dart';
 
-class PollingService{
-
-  Future<bool> polling(filename) async {
-
+class PredictionService{
+// @todo pollen stoppen na 10 seconden -> error geven -> retry
+  Future<bool> polling(filename) async
+  {
     await Future.delayed(const Duration(seconds: 2)); // Wacht 2 seconden tussen de requests
     var result = checkResult(filename);
     return result;
@@ -29,5 +30,17 @@ class PollingService{
       print("Error with polling: $e");
     }
     return false;
+  }
+  Future<Prediction> getPredictionOnFilename(String filename) async
+  {
+
+    final response = await http.get(
+        Uri.parse("${AppConstants.RESULTURI}?filename=$filename")
+    );
+    final data = jsonDecode(response.body);
+    String label = data["label"];
+    double confidence = data["confidence"];
+    Prediction prediction = Prediction(filename, label, confidence);
+    return prediction;
   }
 }
