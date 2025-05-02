@@ -7,15 +7,30 @@ class ImagePreview extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return image != null
-        ? Container(
-      height: 200,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: Colors.grey),
+    final theme = Theme.of(context); // Haal het huidige thema op
+    double screenWidth = MediaQuery.of(context).size.width; // Bepaal de breedte van het scherm
+
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05), // Responsieve padding
+      child: image != null
+          ? Container(
+        height: 200,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(12), // Iets grotere afgeronde hoeken
+          border: Border.all(color: theme.colorScheme.surface), // Grijze border met transparantie
+        ),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(12),
+          child: image!.toImageWidget(),
+        ),
+      )
+          : Text(
+        "Geen afbeelding geselecteerd",
+        style: theme.textTheme.bodyMedium?.copyWith(
+          color: theme.colorScheme.surface, // Kleur van de tekst uit het thema
+          fontWeight: FontWeight.bold,
+        ),
       ),
-      child: image!.toImageWidget(),
-    )
-        : const Text("Geen afbeelding geselecteerd");
+    );
   }
 }

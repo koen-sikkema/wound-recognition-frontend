@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:wound_recognition_frontend/constants/app_strings.dart';
-import 'package:wound_recognition_frontend/pages/home_page.dart';
 import 'package:wound_recognition_frontend/theme/app_theme.dart';
 import 'routes/app_router.dart'; // Importeer de router
 
@@ -19,7 +18,7 @@ class _WoundRecognitionAppState extends State<WoundRecognitionApp> {
   Widget build(BuildContext context) {
     return MaterialApp.router(
       routerConfig: appRouter,
-      title: AppStrings.APPNAME,
+      title: AppStrings.appName,
       theme: AppTheme.lightTheme,
     );
   }

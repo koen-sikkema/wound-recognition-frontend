@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:wound_recognition_frontend/constants/app_strings.dart';
 
-class UploadButton extends StatelessWidget {
+import '../constants/app_strings.dart';
+
+class PickImageButton extends StatelessWidget {
   final VoidCallback onPressed;
-  final bool enabled;
 
-  const UploadButton({
+  const PickImageButton({
     super.key,
     required this.onPressed,
-    required this.enabled,
   });
 
   @override
@@ -17,7 +16,7 @@ class UploadButton extends StatelessWidget {
     double screenWidth = MediaQuery.of(context).size.width; // Bepaal de breedte van het scherm
 
     return ElevatedButton(
-      onPressed: enabled ? onPressed : null,
+      onPressed: onPressed,
       style: ElevatedButton.styleFrom(
         padding: EdgeInsets.symmetric(
           horizontal: screenWidth * 0.2, // Responsieve horizontale padding
@@ -26,13 +25,13 @@ class UploadButton extends StatelessWidget {
         textStyle: theme.textTheme.bodyLarge?.copyWith(
           fontWeight: FontWeight.bold, // Vetgedrukte tekst
         ),
-        backgroundColor: enabled ? theme.primaryColor : theme.disabledColor, // Verander kleur op basis van inschakeling
+        backgroundColor: theme.primaryColor, // Verander kleur op basis van inschakeling
         foregroundColor: Colors.white, // Zorgt ervoor dat de tekst wit blijft
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8), // Ronde hoeken
         ),
       ),
-      child: const Text(AppStrings.uploadButton),
+      child: const Text(AppStrings.chooseImage),
     );
   }
 }

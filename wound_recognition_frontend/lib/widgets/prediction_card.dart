@@ -15,32 +15,44 @@ class PredictionCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context); // Haal het huidige thema op
+    double screenWidth = MediaQuery.of(context).size.width; // Bepaal de breedte van het scherm
+
     return Card(
       elevation: 4,
-      margin: const EdgeInsets.all(16),
+      margin: EdgeInsets.symmetric(horizontal: screenWidth * 0.05, vertical: 16), // Responsieve margin
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const SizedBox(height: 16),
-            Text(
-              'Bestandsnaam: ${prediction.filename}',
-              style: Theme.of(context).textTheme.bodyLarge,
-            ),
-            ImagePreview(image: image),
-            const SizedBox(height: 8),
-            Text(
-              'Label: ${prediction.label}',
-              style: Theme.of(context).textTheme.bodyMedium,
-            ),
-            const SizedBox(height: 8),
-            Text(
-              'Confidence: ${(prediction.confidence * 100).toStringAsFixed(2)}%',
-              style: Theme.of(context).textTheme.bodyMedium,
-            ),
-          ],
+        padding: EdgeInsets.all(screenWidth * 0.05), // Responsieve padding
+        child: Center(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Bestandsnaam: ${prediction.filename}',
+                style: theme.textTheme.bodyLarge?.copyWith(
+                  fontWeight: FontWeight.bold, // Voegt vetgedrukte tekst toe
+                  color: theme.colorScheme.onBackground, // Kleur uit het thema
+                ),
+              ),
+              const SizedBox(height: 16),
+              ImagePreview(image: image),
+              const SizedBox(height: 8),
+              Text(
+                'Label: ${prediction.label}',
+                style: theme.textTheme.bodyMedium?.copyWith(
+                  color: theme.colorScheme.onBackground, // Consistentie in kleur
+                ),
+              ),
+              const SizedBox(height: 8),
+              Text(
+                'Confidence: ${(prediction.confidence * 100).toStringAsFixed(2)}%',
+                style: theme.textTheme.bodyMedium?.copyWith(
+                  color: theme.colorScheme.onBackground, // Consistentie in kleur
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

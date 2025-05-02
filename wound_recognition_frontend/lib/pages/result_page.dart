@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:wound_recognition_frontend/services/image_picker_service/picked_image.dart';
 import 'package:wound_recognition_frontend/services/prediction_service/polling_prediction_service.dart';
-import 'package:wound_recognition_frontend/widgets/MainScaffold.dart/custom_app_bar.dart';
 import 'package:wound_recognition_frontend/constants/app_constants.dart';
-import 'package:wound_recognition_frontend/widgets/MainScaffold.dart/main_scaffold.dart';
+import 'package:wound_recognition_frontend/widgets/MainScaffold/main_scaffold.dart';
 import 'package:wound_recognition_frontend/widgets/prediction_card.dart';
 import '../services/prediction_service/prediction.dart';
-
 
 class ResultPage extends StatefulWidget {
   final PickedImage image;
@@ -30,26 +28,28 @@ class _ResultPageState extends State<ResultPage> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return MainScaffold(
       title: AppConstants.RESULT,
       body: FutureBuilder<Prediction>(
         future: _predictionFuture,
-        builder: (context, snapshot)
-        {
-          if (snapshot.connectionState == ConnectionState.waiting)
-          {
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
-          } else if (snapshot.hasError)
-          {
+          } else if (snapshot.hasError) {
             return Center(child: Text("Fout bij ophalen van voorspelling: ${snapshot.error}"));
-          } else if (snapshot.hasData)
-          {
-            return PredictionCard(
-              prediction: snapshot.data!,
-              image: widget.image,
+          } else if (snapshot.hasData) {
+            return Center(
+              child: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: PredictionCard(
+                  prediction: snapshot.data!,
+                  image: widget.image,
+                ),
+              ),
             );
-          } else
-          {
+          } else {
             return const Center(child: Text("Geen voorspelling gevonden"));
           }
         },

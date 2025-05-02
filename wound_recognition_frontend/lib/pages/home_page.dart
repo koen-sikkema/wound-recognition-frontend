@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:wound_recognition_frontend/widgets/MainScaffold.dart/custom_app_bar.dart';
 import 'package:wound_recognition_frontend/constants/app_constants.dart';
 import 'package:wound_recognition_frontend/constants/app_strings.dart';
-import 'package:wound_recognition_frontend/widgets/MainScaffold.dart/main_scaffold.dart';
+import 'package:wound_recognition_frontend/widgets/MainScaffold/main_scaffold.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -12,28 +11,35 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage>
-{
+class _HomePageState extends State<HomePage> {
   @override
-  Widget build(BuildContext context)
-  {
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context); // Get the theme for consistent styling
+
     return MainScaffold(
       title: AppStrings.homePage,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            const Text(
-              AppStrings.uploadImageText,
-              style: TextStyle(
-                  fontSize: 18, fontWeight: FontWeight.bold
+            Text(
+              AppStrings.uploadImage,
+              style: theme.textTheme.bodyMedium?.copyWith(
+                fontWeight: FontWeight.bold,
+                color: theme.primaryColor,
               ),
             ),
-
+            const SizedBox(height: 16), // spacing
             ElevatedButton(
               onPressed: () => context.go(AppConstants.UPLOADROUTE),
-              child:  const Text(AppStrings.uploadPage),
-
+              child: Text(
+                AppStrings.uploadPage,
+                style: theme.textTheme.bodyLarge?.copyWith(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+              ),
             ),
           ],
         ),
