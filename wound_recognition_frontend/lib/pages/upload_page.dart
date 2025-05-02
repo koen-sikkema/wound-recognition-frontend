@@ -9,7 +9,7 @@ import 'package:wound_recognition_frontend/widgets/pick_image_button.dart';
 import '../routes/result_page_args.dart';
 import '../services/image_picker_service/IImage_picker.dart';
 import '../widgets/MainScaffold/main_scaffold.dart';
-import '../widgets/image_preview.dart';
+import '../widgets/image_preview/image_preview.dart';
 import '../widgets/filename_textfield.dart';
 import 'package:wound_recognition_frontend/services/filename_helper.dart';
 import 'package:wound_recognition_frontend/constants/app_strings.dart';

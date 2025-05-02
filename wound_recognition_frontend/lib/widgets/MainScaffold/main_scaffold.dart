@@ -13,7 +13,10 @@ class MainScaffold extends StatelessWidget {
     return Scaffold(
       appBar: CustomAppBar(title: title),
       drawer: const CustomDrawer(),
-      body: body,
+      body: SingleChildScrollView(
+    padding: const EdgeInsets.all(16),
+    child: body,
+      )
     );
   }
 }
