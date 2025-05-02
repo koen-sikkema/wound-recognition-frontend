@@ -7,28 +7,26 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    // get width
+    final theme = Theme.of(context);
     double screenWidth = MediaQuery.of(context).size.width;
-
-    // change textsize based on width
-    double titleFontSize = screenWidth < 600 ? 18 : 24; // Kleinere tekst voor smallere schermen
+    double titleFontSize = screenWidth < 600 ? 18 : 24;
 
     return AppBar(
-      elevation: 4, // shadow
-      backgroundColor: Colors.blueAccent, //Color
+      elevation: 4,
+      backgroundColor: theme.appBarTheme.backgroundColor ?? theme.primaryColor,
+      foregroundColor: theme.appBarTheme.foregroundColor ?? Colors.white,
       leading: IconButton(
-        icon: const Icon(Icons.menu, color: Colors.white), // menu icon left side
+        icon: Icon(Icons.menu, color: theme.appBarTheme.foregroundColor ?? Colors.white),
         onPressed: () {
-          // open drawer on press
           Scaffold.of(context).openDrawer();
         },
       ),
       title: Text(
         title,
-        style: TextStyle(
-          fontSize: titleFontSize, // dynamic size
+        style: theme.textTheme.titleLarge?.copyWith(
+          fontSize: titleFontSize,
           fontWeight: FontWeight.bold,
-          color: Colors.white, // textcolor
+          color: theme.appBarTheme.foregroundColor ?? Colors.white,
         ),
       ),
     );

@@ -9,18 +9,21 @@ class CustomDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
+
     return Drawer(
       child: ListView(
         padding: EdgeInsets.zero,
         children: <Widget>[
-          const DrawerHeader(
+          DrawerHeader(
             decoration: BoxDecoration(
-              color: Colors.blueAccent,
+              color: theme.appBarTheme.backgroundColor ??theme.primaryColor
             ),
             child: Text(
               'Menu',
               style: TextStyle(
-                color: Colors.white,
+                color: theme.appBarTheme.foregroundColor ?? theme.secondaryHeaderColor,
                 fontSize: 24,
               ),
             ),
