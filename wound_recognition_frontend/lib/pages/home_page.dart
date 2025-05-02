@@ -37,11 +37,6 @@ class _HomePageState extends State<HomePage>
               child:  const Text(AppStrings.uploadPage),
 
             ),
-            const SizedBox(height: 5),
-            ElevatedButton(
-              onPressed: () => context.go(AppConstants.RESULTROUTE),
-                child:  const Text(AppStrings.resultPage),
-            ),
           ],
         ),
       ),
