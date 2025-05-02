@@ -43,7 +43,6 @@ class CustomDrawer extends StatelessWidget {
               context.go(AppConstants.RESULTROUTE);
               },
           ),
-          // Voeg hier meer items toe indien nodig
         ],
       ),
     );

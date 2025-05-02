@@ -3,6 +3,7 @@ import 'package:wound_recognition_frontend/services/image_picker_service/picked_
 import 'package:wound_recognition_frontend/services/prediction_service/polling_prediction_service.dart';
 import 'package:wound_recognition_frontend/widgets/MainScaffold.dart/custom_app_bar.dart';
 import 'package:wound_recognition_frontend/constants/app_constants.dart';
+import 'package:wound_recognition_frontend/widgets/MainScaffold.dart/main_scaffold.dart';
 import 'package:wound_recognition_frontend/widgets/prediction_card.dart';
 import '../services/prediction_service/prediction.dart';
 
@@ -29,21 +30,26 @@ class _ResultPageState extends State<ResultPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: const CustomAppBar(title: AppConstants.RESULT),
+    return MainScaffold(
+      title: AppConstants.RESULT,
       body: FutureBuilder<Prediction>(
         future: _predictionFuture,
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
+        builder: (context, snapshot)
+        {
+          if (snapshot.connectionState == ConnectionState.waiting)
+          {
             return const Center(child: CircularProgressIndicator());
-          } else if (snapshot.hasError) {
+          } else if (snapshot.hasError)
+          {
             return Center(child: Text("Fout bij ophalen van voorspelling: ${snapshot.error}"));
-          } else if (snapshot.hasData) {
+          } else if (snapshot.hasData)
+          {
             return PredictionCard(
               prediction: snapshot.data!,
               image: widget.image,
             );
-          } else {
+          } else
+          {
             return const Center(child: Text("Geen voorspelling gevonden"));
           }
         },

@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:wound_recognition_frontend/widgets/MainScaffold.dart/custom_app_bar.dart';
 import 'package:wound_recognition_frontend/constants/app_constants.dart';
 import 'package:wound_recognition_frontend/constants/app_strings.dart';
+import 'package:wound_recognition_frontend/widgets/MainScaffold.dart/main_scaffold.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -16,11 +17,8 @@ class _HomePageState extends State<HomePage>
   @override
   Widget build(BuildContext context)
   {
-    return Scaffold(
-      appBar: const CustomAppBar(
-          title: AppStrings.homePage
-      ),
-
+    return MainScaffold(
+      title: AppStrings.homePage,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

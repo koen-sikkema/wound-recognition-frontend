@@ -5,11 +5,15 @@ import 'package:wound_recognition_frontend/factories/factories.dart';
 import 'package:wound_recognition_frontend/services/image_picker_service/picked_image.dart';
 import 'package:wound_recognition_frontend/services/prediction_service/polling_prediction_service.dart';
 import 'package:wound_recognition_frontend/services/upload_service/Iuploader.dart';
+import 'package:wound_recognition_frontend/widgets/MainScaffold.dart/main_scaffold.dart';
 import '../routes/result_page_args.dart';
 import '../services/image_picker_service/IImage_picker.dart';
 import '../widgets/image_preview.dart';
 import '../widgets/filename_textfield.dart';
 import 'package:wound_recognition_frontend/services/filename_helper.dart';
+import 'package:wound_recognition_frontend/constants/app_strings.dart';
+
+import '../widgets/upload_button.dart';
 
 class UploadPage extends StatefulWidget
 {
@@ -96,10 +100,8 @@ class _UploadPageState extends State<UploadPage>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-          title: const Text("Afbeelding Uploaden")
-      ),
+    return MainScaffold(
+      title:  AppStrings.uploadImageText,
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(
@@ -119,9 +121,14 @@ class _UploadPageState extends State<UploadPage>
                 image: _selectedImage
             ),
             const SizedBox(height: 12),
-
             if (_isUploading)
               const CircularProgressIndicator()
+            else if (!_resultReady)
+              UploadButton(
+                onPressed: _uploadImage,
+                enabled: _selectedImage != null,
+              ),
+
           ],
         ),
       ),
