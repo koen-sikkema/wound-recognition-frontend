@@ -81,10 +81,19 @@ class _UploadPageState extends State<UploadPage>
       }
     }
   }
-
   @override
-  Widget build(BuildContext context)
-  {
+  Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (_resultReady && _resultFilename != null && _selectedImage != null && mounted) {
+        context.go(
+          AppConstants.RESULTROUTE,
+          extra: ResultPageArgs(
+            image: _selectedImage!,
+            filename: _resultFilename!,
+          ),
+        );
+      }
+    });
     return Scaffold(
       appBar: AppBar(
           title: const Text("Afbeelding Uploaden")

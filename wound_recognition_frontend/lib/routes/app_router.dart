@@ -1,6 +1,5 @@
 
 import 'package:go_router/go_router.dart';
-import 'package:wound_recognition_frontend/services/image_picker_service/picked_image.dart';
 import '../pages/home_page.dart';
 import '../pages/result_page.dart';
 import '../constants/app_constants.dart';
