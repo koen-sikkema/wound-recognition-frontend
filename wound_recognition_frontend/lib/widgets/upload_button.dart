@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 class UploadButton extends StatelessWidget {
   final VoidCallback onPressed;
   final bool enabled;

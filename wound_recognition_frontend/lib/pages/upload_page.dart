@@ -8,7 +8,6 @@ import 'package:wound_recognition_frontend/services/upload_service/Iuploader.dar
 import '../routes/result_page_args.dart';
 import '../services/image_picker_service/IImage_picker.dart';
 import '../widgets/image_preview.dart';
-import '../widgets/upload_button.dart';
 import '../widgets/filename_textfield.dart';
 import 'package:wound_recognition_frontend/services/filename_helper.dart';
 
@@ -78,22 +77,25 @@ class _UploadPageState extends State<UploadPage>
           _resultReady = true;
           _isUploading = false;
         });
+        if (_resultFilename != null) {
+          _navigateToResultPage();
+        }
       }
     }
   }
+  void _navigateToResultPage() {
+    if (!mounted) return;
+    context.go(
+      AppConstants.RESULTROUTE,
+      extra: ResultPageArgs(
+        image: _selectedImage!,
+        filename: _resultFilename!,
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (_resultReady && _resultFilename != null && _selectedImage != null && mounted) {
-        context.go(
-          AppConstants.RESULTROUTE,
-          extra: ResultPageArgs(
-            image: _selectedImage!,
-            filename: _resultFilename!,
-          ),
-        );
-      }
-    });
     return Scaffold(
       appBar: AppBar(
           title: const Text("Afbeelding Uploaden")
@@ -103,43 +105,23 @@ class _UploadPageState extends State<UploadPage>
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-
+            const SizedBox(height: 12),
             ElevatedButton(
               onPressed: _chooseImage,
               child: const Text("Kies een afbeelding"),
             ),
-
+            const SizedBox(height: 12),
             FilenameTextField(
               controller: _filenameController,
             ),
-
+            const SizedBox(height: 12),
             ImagePreview(
                 image: _selectedImage
             ),
+            const SizedBox(height: 12),
 
-            const SizedBox(
-                height: 20
-            ),
-
-            // @todo refactor ugly code
-            _isUploading ?
-            const CircularProgressIndicator() :
-            !_resultReady ?
-            UploadButton(
-              onPressed: _uploadImage,
-              enabled: _selectedImage != null,
-            ):
-            ElevatedButton(
-              onPressed: () {
-                if (_resultFilename != null) {
-                  context.go(AppConstants.RESULTROUTE,
-                    extra: ResultPageArgs(
-                        image: _selectedImage!,
-                        filename: _resultFilename!),);
-                }
-              },
-              child: const Text("Toon resultaat!"),
-            ),
+            if (_isUploading)
+              const CircularProgressIndicator()
           ],
         ),
       ),

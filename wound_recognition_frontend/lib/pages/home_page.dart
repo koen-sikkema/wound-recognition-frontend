@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:wound_recognition_frontend/widgets/custom_app_bar.dart';
+import 'package:wound_recognition_frontend/widgets/MainScaffold.dart/custom_app_bar.dart';
 import 'package:wound_recognition_frontend/constants/app_constants.dart';
 import 'package:wound_recognition_frontend/constants/app_strings.dart';
 
