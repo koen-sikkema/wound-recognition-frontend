@@ -27,6 +27,9 @@ environment:
 # dependencies can be manually updated by changing the version numbers below to
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
+dev_dependencies:
+  flutter_native_splash: ^2.3.5
+
 dependencies:
   flutter:
     sdk: flutter
@@ -93,3 +96,10 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/to/font-from-package
+  flutter_native_splash:
+    color: "0xFFA5D6A7" # achtergrondkleur
+    image: assets/WondherkenningsPoster.png # je logo
+#    branding: assets/branding.png # optioneel extra onder het logo
+    android: true
+    ios: true
+
