@@ -14,21 +14,27 @@ dependencies:
   flutter_test:
     sdk: flutter
   image_picker: ^1.0.7
-  file_picker: ^8.0.0
-  go_router: ^13.1.0
-  http: 1.3.0
-  intl: ^0.17.0
+  file_picker: ^10.1.2
+  go_router: ^15.1.1
+  http: ^1.4.0
+  intl: ^0.20.2
   uuid: ^4.4.2
 
 dev_dependencies:
   flutter_native_splash: ^2.3.5
-  flutter_lints: ^4.0.0
+  flutter_lints: ^5.0.0
+  flutter_launcher_icons: ^0.13.1
 
 flutter:
   uses-material-design: true
 
 flutter_native_splash:
   color: "0xFFA5D6A7" # achtergrondkleur
-  image: assets/WondherkenningsPoster.png # je logo
+  image: "assets/WondherkenningsPoster.png" # je logo
   android: true
   ios: true
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/icon/app_icon.png"
