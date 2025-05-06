@@ -17,7 +17,7 @@ class PredictionService{
     try
     {
       final response = await http.get(
-          Uri.parse("${AppConstants.RESULTURI}?filename=$filename")
+          Uri.parse("${AppConstants.RESULTURIMOBILE}?filename=$filename")
      );
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
@@ -35,7 +35,7 @@ class PredictionService{
   {
 
     final response = await http.get(
-        Uri.parse("${AppConstants.RESULTURI}?filename=$filename")
+        Uri.parse("${AppConstants.RESULTURIMOBILE}?filename=$filename")
     );
     final data = jsonDecode(response.body);
     String label = data["label"];
