@@ -17,7 +17,7 @@ class UploadButton extends StatelessWidget {
     double screenWidth = MediaQuery.of(context).size.width; // Bepaal de breedte van het scherm
 
     return ConstrainedBox(
-      constraints: const BoxConstraints(maxWidth: 360), // Zelfde als bij PickImageButton
+      constraints: const BoxConstraints(maxHeight: 50), // Zelfde als bij PickImageButton
       child: ElevatedButton(
         onPressed: enabled ? onPressed : null,
         style: ElevatedButton.styleFrom(
