@@ -16,23 +16,25 @@ class UploadButton extends StatelessWidget {
     final theme = Theme.of(context); // Haal het huidige thema op
     double screenWidth = MediaQuery.of(context).size.width; // Bepaal de breedte van het scherm
 
-    return ElevatedButton(
-      onPressed: enabled ? onPressed : null,
-      style: ElevatedButton.styleFrom(
-        padding: EdgeInsets.symmetric(
-          horizontal: screenWidth * 0.2, // Responsieve horizontale padding
-          vertical: 16, // Consistente verticale padding
+    return ConstrainedBox(
+      constraints: const BoxConstraints(maxWidth: 360), // Zelfde als bij PickImageButton
+      child: ElevatedButton(
+        onPressed: enabled ? onPressed : null,
+        style: ElevatedButton.styleFrom(
+          padding: const EdgeInsets.symmetric(
+            vertical: 16,
+          ),
+          textStyle: theme.textTheme.bodyLarge?.copyWith(
+            fontWeight: FontWeight.bold,
+          ),
+          backgroundColor: enabled ? theme.primaryColor : theme.disabledColor,
+          foregroundColor: Colors.white,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(8),
+          ),
         ),
-        textStyle: theme.textTheme.bodyLarge?.copyWith(
-          fontWeight: FontWeight.bold, // Vetgedrukte tekst
-        ),
-        backgroundColor: enabled ? theme.primaryColor : theme.disabledColor, // Verander kleur op basis van inschakeling
-        foregroundColor: Colors.white, // Zorgt ervoor dat de tekst wit blijft
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8), // Ronde hoeken
-        ),
+        child: const Text(AppStrings.uploadButton),
       ),
-      child: const Text(AppStrings.uploadButton),
     );
   }
 }

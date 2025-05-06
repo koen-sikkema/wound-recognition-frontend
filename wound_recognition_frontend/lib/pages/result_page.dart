@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:wound_recognition_frontend/services/image_picker_service/picked_image.dart';
 import 'package:wound_recognition_frontend/services/prediction_service/polling_prediction_service.dart';
 import 'package:wound_recognition_frontend/constants/app_constants.dart';
 import 'package:wound_recognition_frontend/widgets/MainScaffold/main_scaffold.dart';
 import 'package:wound_recognition_frontend/widgets/prediction_card.dart';
+import '../constants/app_strings.dart';
 import '../services/prediction_service/prediction.dart';
 
 class ResultPage extends StatefulWidget {
@@ -41,17 +43,34 @@ class _ResultPageState extends State<ResultPage> {
             return Center(child: Text("Fout bij ophalen van voorspelling: ${snapshot.error}"));
           } else if (snapshot.hasData) {
             return Center(
-              child: Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: PredictionCard(
-                  prediction: snapshot.data!,
-                  image: widget.image,
+                child:  Padding(
+                  padding: const EdgeInsets.all(20.0),
+                child : Column(
+                  children: [
+                    PredictionCard(
+                    prediction: snapshot.data!,
+                    image: widget.image,
+                    ),
+                  const SizedBox(height: 20),
+
+                  ElevatedButton(
+                    onPressed: () => context.go(AppConstants.UPLOADROUTE),
+                    child: Text(
+                      AppStrings.uploadPage,
+                      style: theme.textTheme.bodyLarge?.copyWith(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ]
                 ),
-              ),
+              )
             );
           } else {
             return const Center(child: Text("Geen voorspelling gevonden"));
           }
+
         },
       ),
     );

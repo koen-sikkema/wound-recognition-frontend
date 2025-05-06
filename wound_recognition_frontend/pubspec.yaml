@@ -21,7 +21,7 @@ dependencies:
   uuid: ^4.4.2
 
 dev_dependencies:
-  flutter_native_splash: ^2.3.5
+  flutter_native_splash: ^2.4.6
   flutter_lints: ^5.0.0
   flutter_launcher_icons: ^0.13.1
 
@@ -29,12 +29,12 @@ flutter:
   uses-material-design: true
 
 flutter_native_splash:
-  color: "0xFFA5D6A7" # achtergrondkleur
+  color: "B3E5FC"
   image: "assets/WondherkenningsPoster.png" # je logo
   android: true
   ios: true
 
-flutter_icons:
+flutter_launcher_icons:
   android: true
   ios: true
-  image_path: "assets/icon/app_icon.png"
+  image_path: "assets/icon/wound_app_icon.png"

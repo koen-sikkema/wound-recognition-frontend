@@ -12,26 +12,26 @@ class PickImageButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context); // Haal het huidige thema op
-    double screenWidth = MediaQuery.of(context).size.width; // Bepaal de breedte van het scherm
-
-    return ElevatedButton(
-      onPressed: onPressed,
-      style: ElevatedButton.styleFrom(
-        padding: EdgeInsets.symmetric(
-          horizontal: screenWidth * 0.2, // Responsieve horizontale padding
-          vertical: 16, // Consistente verticale padding
+    final theme = Theme.of(context);
+    return ConstrainedBox(
+      constraints: const BoxConstraints(maxWidth: 360),
+      child: ElevatedButton(
+        onPressed: onPressed,
+        style: ElevatedButton.styleFrom(
+          padding: const EdgeInsets.symmetric(
+            vertical: 16,
+          ),
+          textStyle: theme.textTheme.bodyLarge?.copyWith(
+            fontWeight: FontWeight.bold,
+          ),
+          backgroundColor: theme.primaryColor,
+          foregroundColor: Colors.white,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(8),
+          ),
         ),
-        textStyle: theme.textTheme.bodyLarge?.copyWith(
-          fontWeight: FontWeight.bold, // Vetgedrukte tekst
-        ),
-        backgroundColor: theme.primaryColor, // Verander kleur op basis van inschakeling
-        foregroundColor: Colors.white, // Zorgt ervoor dat de tekst wit blijft
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8), // Ronde hoeken
-        ),
+        child: const Text(AppStrings.chooseImage),
       ),
-      child: const Text(AppStrings.chooseImage),
     );
   }
 }
