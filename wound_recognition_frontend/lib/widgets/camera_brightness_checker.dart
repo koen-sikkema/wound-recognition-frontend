@@ -1,10 +1,11 @@
-// import 'dart:async';
-// import 'dart:typed_data';
+// // camera_brightness_checker.dart
+//
 // import 'package:camera/camera.dart';
 // import 'package:flutter/material.dart';
-// import 'dart:math';
 //
 // class CameraBrightnessChecker extends StatefulWidget {
+//   const CameraBrightnessChecker({super.key});
+//
 //   @override
 //   _CameraBrightnessCheckerState createState() => _CameraBrightnessCheckerState();
 // }
@@ -20,18 +21,31 @@
 //   }
 //
 //   Future<void> _initCamera() async {
-//     final cameras = await availableCameras();
-//     _controller = CameraController(cameras[0], ResolutionPreset.low);
-//     await _controller!.initialize();
+//     try {
+//       final cameras = await availableCameras();
+//       if (cameras.isEmpty) {
+//         setState(() {
+//           _status = 'No cameras available';
+//         });
+//         return;
+//       }
 //
-//     // Start beeldanalyse
-//     _controller!.startImageStream(_analyzeBrightness);
+//       _controller = CameraController(cameras[0], ResolutionPreset.low);
+//       await _controller!.initialize();
 //
-//     setState(() {});
+//       // Start image stream
+//       _controller!.startImageStream(_analyzeBrightness);
+//
+//       setState(() {});
+//     } catch (e) {
+//       setState(() {
+//         _status = 'Error initializing camera: $e';
+//       });
+//     }
 //   }
 //
 //   void _analyzeBrightness(CameraImage image) {
-//     // Alleen Y (luminantie) kanaal gebruiken voor helderheid
+//     // Use only Y (luminance) channel for brightness calculation
 //     final bytes = image.planes[0].bytes;
 //     final brightness = bytes.reduce((a, b) => a + b) / bytes.length;
 //
@@ -52,8 +66,10 @@
 //         return _message("Licht is zwak. Verbeter indien mogelijk.", Colors.orange);
 //       case 'ok':
 //         return _message("Licht is goed!", Colors.green);
+//       case 'loading':
+//         return Center(child: CircularProgressIndicator());
 //       default:
-//         return Text("Camera starten...");
+//         return Text(_status); // Error or status message
 //     }
 //   }
 //

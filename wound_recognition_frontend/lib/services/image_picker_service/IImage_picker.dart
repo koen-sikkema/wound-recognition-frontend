@@ -3,4 +3,5 @@ import 'package:wound_recognition_frontend/services/image_picker_service/picked_
 abstract class IImagePicker
 {
   Future<PickedImage?> pickImage();
+  Future<PickedImage?> pickImageFromCamera();
 }

@@ -23,4 +23,9 @@ class WebImagePicker implements IImagePicker
     }
     return null;
   }
+
+  @override
+  Future<PickedImage?> pickImageFromCamera() {
+    return pickImage();
+  }
 }
