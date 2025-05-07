@@ -14,20 +14,18 @@ class UploadButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context); // Haal het huidige thema op
-    double screenWidth = MediaQuery.of(context).size.width; // Bepaal de breedte van het scherm
 
-    return ConstrainedBox(
-      constraints: const BoxConstraints(maxHeight: 50), // Zelfde als bij PickImageButton
+    return enabled
+        ? ConstrainedBox(
+      constraints: const BoxConstraints(maxHeight: 50),
       child: ElevatedButton(
-        onPressed: enabled ? onPressed : null,
+        onPressed: onPressed,
         style: ElevatedButton.styleFrom(
-          padding: const EdgeInsets.symmetric(
-            vertical: 16,
-          ),
+          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12), // Correct padding syntax
           textStyle: theme.textTheme.bodyLarge?.copyWith(
             fontWeight: FontWeight.bold,
           ),
-          backgroundColor: enabled ? theme.primaryColor : theme.disabledColor,
+          backgroundColor: theme.primaryColor,
           foregroundColor: Colors.white,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8),
@@ -35,6 +33,7 @@ class UploadButton extends StatelessWidget {
         ),
         child: const Text(AppStrings.uploadButton),
       ),
-    );
+    )
+        : SizedBox.shrink();
   }
 }

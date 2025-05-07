@@ -18,9 +18,7 @@ class PickImageButton extends StatelessWidget {
       child: ElevatedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
-          padding: const EdgeInsets.symmetric(
-            vertical: 16,
-          ),
+          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12), // Correct padding syntax
           textStyle: theme.textTheme.bodyLarge?.copyWith(
             fontWeight: FontWeight.bold,
           ),

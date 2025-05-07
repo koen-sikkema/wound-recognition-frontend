@@ -6,5 +6,5 @@ class AppStrings{
   static const String homePage = 'Home Pagina';
   static const String uploadButton = 'Afbeelding Uploaden';
   static const String appName = 'WondherkenningsApplicatie';
-  static const String chooseImage = 'Selecteer een Afbeelding';
+  static const String chooseImage = 'Selecteren uit Gallerij';
 }

@@ -8,8 +8,10 @@ import 'package:wound_recognition_frontend/services/upload_service/Iuploader.dar
 import 'package:wound_recognition_frontend/widgets/pick_image_button.dart';
 import '../routes/result_page_args.dart';
 import '../services/image_picker_service/IImage_picker.dart';
+import '../services/image_picker_service/mobile_image_picker.dart';
 import '../widgets/MainScaffold/main_scaffold.dart';
-import '../widgets/image_preview/image_preview.dart';
+import '../widgets/image_preview/empty_image_preview.dart';
+import '../widgets/image_preview/filled_image_preview.dart';
 import '../widgets/filename_textfield.dart';
 import 'package:wound_recognition_frontend/services/filename_helper.dart';
 import 'package:wound_recognition_frontend/constants/app_strings.dart';
@@ -27,7 +29,7 @@ class _UploadPageState extends State<UploadPage> {
   IImagePicker? _imagePicker;
   PickedImage? _selectedImage;
   PredictionService? _predictionService;
-
+  bool isMobile = false;
   bool _isUploading = false;
   bool _predictionReady = false;
   String? _predictionFilename;
@@ -39,6 +41,7 @@ class _UploadPageState extends State<UploadPage> {
     _uploader = getUploader();
     _imagePicker = getImagePicker();
     _predictionService = getResultChecker();
+    isMobile = _imagePicker is MobileImagePicker;
   }
 
   void _chooseImage() async {
@@ -49,18 +52,25 @@ class _UploadPageState extends State<UploadPage> {
       });
     }
   }
-
   void _uploadImage() async {
     setState(() {
       _isUploading = true;
       _predictionReady = false;
     });
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+          content: Text("Uploaden..."),
+          duration: Duration(seconds: 2)
+      ),
+    );
 
     final filename = FilenameHelper.getFinalFilename(_filenameController.text);
     _predictionFilename = filename;
 
     await _uploader?.uploadImage(_selectedImage, filename, context);
     _pollForResult(filename);
+
+
   }
 
   void _pollForResult(String filename) async {
@@ -78,7 +88,8 @@ class _UploadPageState extends State<UploadPage> {
       }
     }
   }
-
+  void _openCamera(){
+  }
   void _navigateToResultPage() {
     if (!mounted) return;
     context.go(
@@ -102,16 +113,28 @@ class _UploadPageState extends State<UploadPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+
             const SizedBox(height: 12),
-            PickImageButton(
-                onPressed: _chooseImage
-            ),
+            _selectedImage == null
+                ? EmptyImagePreview(onTap: _chooseImage)
+                : FilledImagePreview(image: _selectedImage!),
+            const SizedBox(height: 12),
+            Text(
+              "Vul een bestandnaam in of laat leeg om een te laten genereren",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                color: Colors.cyan,
+              ),),
             const SizedBox(height: 12),
             FilenameTextField(
               controller: _filenameController,
             ),
             const SizedBox(height: 12),
-            ImagePreview(image: _selectedImage),
+            PickImageButton(
+                onPressed: _chooseImage
+            ),
             const SizedBox(height: 12),
             if (_isUploading)
               const CircularProgressIndicator()

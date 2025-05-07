@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import '../services/prediction_service/prediction.dart';
 import '../services/image_picker_service/picked_image.dart';
-import 'image_preview/image_preview.dart';
-import 'image_preview/preview_size.dart';
+import 'image_preview/filled_image_preview.dart';
 
 class PredictionCard extends StatelessWidget {
   final Prediction prediction;
@@ -37,7 +36,7 @@ class PredictionCard extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 16),
-              ImagePreview(image: image),
+              FilledImagePreview(image: image),
 
               const SizedBox(height: 8),
               Text(

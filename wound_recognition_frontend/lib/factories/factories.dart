@@ -8,18 +8,20 @@ import '../services/image_picker_service/mobile_image_picker.dart';
 import '../services/prediction_service/polling_prediction_service.dart';
 
 
-
 Iuploader getUploader(){
   return Uploader();
 }
 IImagePicker getImagePicker() {
   if (kIsWeb) {
+
     return WebImagePicker();
   } else {
+
     return MobileImagePicker();
   }
 }
 PredictionService getResultChecker(){
   return PredictionService();
 }
+
 

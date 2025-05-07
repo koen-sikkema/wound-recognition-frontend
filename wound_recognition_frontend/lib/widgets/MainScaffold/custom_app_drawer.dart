@@ -28,13 +28,6 @@ class CustomDrawer extends StatelessWidget {
           ),
           ListTile(
             title: Text(
-              AppStrings.homePage,
-              style: theme.textTheme.bodyMedium,
-            ),
-            onTap: () => context.go(AppConstants.HOMEROUTE),
-          ),
-          ListTile(
-            title: Text(
               AppStrings.uploadPage,
               style: theme.textTheme.bodyMedium,
             ),
