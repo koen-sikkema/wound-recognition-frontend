@@ -3,40 +3,48 @@ import 'package:http/http.dart' as http;
 import 'package:wound_recognition_frontend/constants/app_constants.dart';
 import 'prediction.dart';
 
-class PredictionService{
-// @todo pollen stoppen na 10 seconden -> error geven -> retry
-  Future<bool> polling(filename) async
-  {
-    await Future.delayed(const Duration(seconds: 2)); // Wacht 2 seconden tussen de requests
-    var result = checkResult(filename);
-    return result;
+class PredictionService {
+  var counter = 0;
+
+  // Polling stopt pas als een 200 OK wordt ontvangen met het resultaat.
+  Future<bool> polling(String filename) async {
+    // Wacht 2 seconden tussen de requests
+    await Future.delayed(const Duration(seconds: 2));
+
+    // Controleer het resultaat
+    var isResult = await checkResult(filename);  // Verander deze naar 'await'
+    return isResult;
   }
 
-  Future<bool> checkResult(String filename) async
-  {
-    try
-    {
+  // Controleer de serverresponse
+  Future<bool> checkResult(String filename) async {
+    try {
       final response = await http.get(
-          Uri.parse("${AppConstants.RESULTURIMOBILE}?filename=$filename")
-     );
+        Uri.parse("${AppConstants.RESULTURIMOBILE}?filename=$filename"),
+      );
+
       if (response.statusCode == 200) {
+        // Als de response 200 OK is, betekent dit dat de voorspelling klaar is
         final data = jsonDecode(response.body);
-        return data["label"] != null; // Controleer of het resultaat een label bevat
+        return data["label"] != null;  // Controleer of er een label in de response zit
+      } else if (response.statusCode == 202) {
+        // Als de response 202 is, betekent dat de voorspelling nog niet klaar is
+        return false;  // Geen resultaat beschikbaar, blijf polling doen
+      } else {
+        // Andere foutstatus, retourneer false
+        return false;
       }
-      return response.statusCode == 202;
-
-   } catch (e)
-    {
+    } catch (e) {
       print("Error with polling: $e");
+      return false;  // Bij een fout, blijf polling doen
     }
-    return false;
   }
-  Future<Prediction> getPredictionOnFilename(String filename) async
-  {
 
+  Future<Prediction> getPredictionOnFilename(String filename) async {
     final response = await http.get(
-        Uri.parse("${AppConstants.RESULTURIMOBILE}?filename=$filename")
+      Uri.parse("${AppConstants.RESULTURIMOBILE}?filename=$filename"),
     );
+
     final data = jsonDecode(response.body);
     String label = data["label"];
     double confidence = data["confidence"];

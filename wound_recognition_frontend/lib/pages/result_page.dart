@@ -27,6 +27,23 @@ class _ResultPageState extends State<ResultPage> {
     super.initState();
     _predictionFuture = predictionService.getPredictionOnFilename(widget.filename);
   }
+  Future<Prediction> waitForPrediction(String filename) async {
+    const maxAttempts = 10;
+    const delay = Duration(seconds: 2);
+    int attempts = 0;
+
+    while (attempts < maxAttempts) {
+      bool isReady = await predictionService.checkResult(filename);
+      if (isReady) {
+        return await predictionService.getPredictionOnFilename(filename);
+      }
+      await Future.delayed(delay);
+      attempts++;
+    }
+
+    throw Exception("Resultaat niet beschikbaar binnen de wachttijd.");
+  }
+
 
   @override
   Widget build(BuildContext context) {

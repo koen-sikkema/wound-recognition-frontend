@@ -84,17 +84,38 @@ class _UploadPageState extends State<UploadPage> {
   }
 
   void _pollForResult(String filename) async {
-    while (!_predictionReady) {
+    const int maxAttempts = 30;  // Aantal keren dat we de server zullen pollen
+    int attempts = 0;
+
+    while (!_predictionReady && attempts < maxAttempts) {
+      attempts++;
+
+      // Wacht 2 seconden voordat we de volgende poll doen
+      await Future.delayed(const Duration(seconds: 2));
+
       var result = await _predictionService!.polling(filename);
+
       if (result) {
         setState(() {
           _predictionReady = true;
           _isUploading = false;
         });
+
         if (_predictionFilename != null) {
+          // Ga naar de resultpagina met de juiste argumenten
           _navigateToResultPage();
         }
       }
+    }
+
+    // Als het na maxAttempts nog niet gelukt is, toon een foutmelding
+    if (attempts >= maxAttempts) {
+      setState(() {
+        _isUploading = false;
+      });
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("Resultaat kon niet worden verkregen. Probeer het opnieuw.")),
+      );
     }
   }
 
