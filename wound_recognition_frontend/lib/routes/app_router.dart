@@ -1,5 +1,6 @@
 
 import 'package:go_router/go_router.dart';
+import 'package:wound_recognition_frontend/pages/predictions_page.dart';
 import '../pages/result_page.dart';
 import '../constants/app_constants.dart';
 import '../pages/upload_page.dart';
@@ -21,6 +22,10 @@ final GoRouter appRouter = GoRouter(
             filename: args.filename
         );
       }
+    ),
+    GoRoute(
+      path: AppConstants.PREDICTIONSROUTE,
+      builder: (context, state) => const PredictionsPage(),
     ),
   ],
 );

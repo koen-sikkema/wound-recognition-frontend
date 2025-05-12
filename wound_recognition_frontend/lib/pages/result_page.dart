@@ -63,6 +63,16 @@ class _ResultPageState extends State<ResultPage> {
                         ),
                       ),
                     ),
+                    ElevatedButton(
+                      onPressed: () => context.go(AppConstants.PREDICTIONSROUTE),
+                      child: Text(
+                        AppStrings.predictionspage,
+                        style: theme.textTheme.bodyLarge?.copyWith(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
                   ]
                 ),
               )

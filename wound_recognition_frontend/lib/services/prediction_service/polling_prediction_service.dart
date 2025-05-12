@@ -1,24 +1,25 @@
 import 'dart:convert';
+import 'dart:developer' as Logger;
 import 'package:http/http.dart' as http;
 import 'package:wound_recognition_frontend/constants/app_constants.dart';
 import 'prediction.dart';
 
 class PredictionService {
   var counter = 0;
-
   // Polling stopt pas als een 200 OK wordt ontvangen met het resultaat.
   Future<bool> polling(String filename) async {
-
-    await Future.delayed(const Duration(seconds: 2));
-
-    var isResult = await checkResult(filename);  // Verander deze naar 'await'
+    var isResult = false;
+    while (!isResult){
+      await Future.delayed(const Duration(seconds: 2));
+      isResult = await checkResult(filename);
+    }
     return isResult;
   }
 
   Future<bool> checkResult(String filename) async {
     try {
       final response = await http.get(
-        Uri.parse("${AppConstants.RESULTURIMOBILE}?filename=$filename"),
+        Uri.parse("${AppConstants.RESULTURIMOBILEGRONINGEN}?filename=$filename"),
       );
 
       if (response.statusCode == 200) {
@@ -40,7 +41,7 @@ class PredictionService {
 
   Future<Prediction> getPredictionOnFilename(String filename) async {
     final response = await http.get(
-      Uri.parse("${AppConstants.RESULTURIMOBILE}?filename=$filename"),
+      Uri.parse("${AppConstants.RESULTURIMOBILEGRONINGEN}?filename=$filename"),
     );
 
     final data = jsonDecode(response.body);

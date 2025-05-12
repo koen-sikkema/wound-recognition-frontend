@@ -1,3 +1,5 @@
+import 'dart:developer' as Logger;
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -93,13 +95,15 @@ class _UploadPageState extends State<UploadPage> {
   void _pollForResult(String filename) async
   {
     var result = await _predictionService!.polling(filename);
+    print("poll gestart");
     if (result) {
+      print("result gevonden");
       setState(() {
         _predictionReady = true;
         _isUploading = false;
       });
       if (_predictionFilename != null) {
-          // Ga naar de resultpagina met de juiste argumenten
+        print("navigeren gestart");
         _navigateToResultPage();
       }
     }
@@ -117,7 +121,6 @@ class _UploadPageState extends State<UploadPage> {
   }
 
   void _startCamera() async {
-    // Vraag de toestemming pas wanneer de gebruiker op de knop klikt
     final image = await _imagePicker?.pickImageFromCamera();
 
     if (image != null) {

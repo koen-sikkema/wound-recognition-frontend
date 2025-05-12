@@ -7,4 +7,5 @@ class AppStrings{
   static const String uploadButton = 'Afbeelding Uploaden';
   static const String appName = 'WondherkenningsApplicatie';
   static const String chooseImage = 'Selecteren uit Gallerij';
+  static const String predictionspage = 'Alle voorspellingen';
 }
