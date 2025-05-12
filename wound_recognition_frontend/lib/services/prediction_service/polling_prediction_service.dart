@@ -8,15 +8,13 @@ class PredictionService {
 
   // Polling stopt pas als een 200 OK wordt ontvangen met het resultaat.
   Future<bool> polling(String filename) async {
-    // Wacht 2 seconden tussen de requests
+
     await Future.delayed(const Duration(seconds: 2));
 
-    // Controleer het resultaat
     var isResult = await checkResult(filename);  // Verander deze naar 'await'
     return isResult;
   }
 
-  // Controleer de serverresponse
   Future<bool> checkResult(String filename) async {
     try {
       final response = await http.get(
