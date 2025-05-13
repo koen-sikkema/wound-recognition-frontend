@@ -16,7 +16,7 @@ class MainScaffold extends StatelessWidget {
       appBar: CustomAppBar(title: title),
       drawer: const CustomDrawer(),
       body: RefreshIndicator(
-        onRefresh: _handleRefresh ?? () async{}, // Default empty function for non implemented pages
+        onRefresh: _handleRefresh,
         child: ListView(
           padding: const EdgeInsets.all(16),
           children: [

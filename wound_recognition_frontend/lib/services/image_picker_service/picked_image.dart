@@ -43,4 +43,8 @@ class PickedImage {
     final file = File(newPath);
     return await file.writeAsBytes(bytes);
   }
+
+  static Future<PickedImage?> fromFile(File file) async {
+     return PickedImage(file: file);
+  }
 }

@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:path_provider/path_provider.dart';
 import 'package:wound_recognition_frontend/services/prediction_service/prediction.dart';
-
 import 'image_picker_service/picked_image.dart';
 
 class StorageService {
@@ -28,18 +27,6 @@ class StorageService {
     await file.writeAsString(encoded);
   }
 
-
-  Future<List<Prediction>> loadPredictionData() async {
-    final dir = await getApplicationDocumentsDirectory();
-    final file = File('${dir.path}/metadata.json');
-
-    if (!await file.exists()) return [];
-
-    final contents = await file.readAsString();
-    final List decoded = jsonDecode(contents);
-    return decoded.map((e) => Prediction.fromJson(e)).toList();
-  }
-
   Future<void> savePredictionAndImage(PickedImage image, String filename, double confidence, String label) async{
     savePredictionImage(image, filename);
     final data = Prediction(
@@ -48,5 +35,27 @@ class StorageService {
         confidence: confidence
       );
     savePredictionData(data);
+  }
+
+  Future<PickedImage?> loadPredictionImage(String filename) async {
+    final dir = await getApplicationDocumentsDirectory();
+    final path = '${dir.path}/$filename';
+    final file = File(path);
+
+    if (await file.exists()) {
+      return PickedImage.fromFile(file);
+    }
+    return null;
+  }
+
+  Future<List<Prediction>> loadPredictionData() async {
+    final dir = await getApplicationDocumentsDirectory();
+    final file = File('${dir.path}/predictions.json');
+
+    if (!await file.exists()) return [];
+
+    final contents = await file.readAsString();
+    final List decoded = jsonDecode(contents);
+    return decoded.map((e) => Prediction.fromJson(e)).toList();
   }
 }

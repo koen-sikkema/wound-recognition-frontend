@@ -35,7 +35,7 @@ class CustomDrawer extends StatelessWidget {
           ),
           ListTile(
             title: Text(
-              AppStrings.predictionspage,
+              AppStrings.predictionsPage,
               style: theme.textTheme.bodyMedium,
             ),
             onTap: () => context.go(AppConstants.PREDICTIONSROUTE),

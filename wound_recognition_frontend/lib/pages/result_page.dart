@@ -30,7 +30,7 @@ class _ResultPageState extends State<ResultPage> {
     super.initState();
     _predictionFuture = predictionService.getPredictionOnFilename(widget.filename);
   }
-  void savePrediction(image, snapshot) async {
+  void _savePrediction(image, snapshot) async {
     _storageService.savePredictionAndImage(
         image,
         snapshot.data.filename,
@@ -53,6 +53,7 @@ class _ResultPageState extends State<ResultPage> {
           } else if (snapshot.hasError) {
             return Center(child: Text("Fout bij ophalen van voorspelling: ${snapshot.error}"));
           } else if (snapshot.hasData) {
+            _savePrediction(widget.image, snapshot);
             return Center(
                 child:  Padding(
                   padding: const EdgeInsets.all(20.0),
@@ -77,7 +78,7 @@ class _ResultPageState extends State<ResultPage> {
                     ElevatedButton(
                       onPressed: () => context.go(AppConstants.PREDICTIONSROUTE),
                       child: Text(
-                        AppStrings.predictionspage,
+                        AppStrings.predictionsPage,
                         style: theme.textTheme.bodyLarge?.copyWith(
                           fontWeight: FontWeight.bold,
                           color: Colors.white,

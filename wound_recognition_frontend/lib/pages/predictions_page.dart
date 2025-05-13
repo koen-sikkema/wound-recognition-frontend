@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:wound_recognition_frontend/constants/app_strings.dart';
+import 'package:wound_recognition_frontend/services/prediction_service/prediction.dart';
 import 'package:wound_recognition_frontend/services/prediction_service/prediction_service.dart';
 import 'package:wound_recognition_frontend/constants/app_constants.dart';
+import 'package:wound_recognition_frontend/services/storage_service.dart';
 import 'package:wound_recognition_frontend/widgets/MainScaffold/main_scaffold.dart';
 import 'package:wound_recognition_frontend/widgets/prediction_card.dart';
-
 
 class PredictionsPage extends StatefulWidget {
   const PredictionsPage({super.key});
@@ -13,23 +15,44 @@ class PredictionsPage extends StatefulWidget {
 }
 
 class _PredictionPageState extends State<PredictionsPage> {
-  PredictionService predictionService = PredictionService();
-  late final List<PredictionCard> predictions;
+  final PredictionService predictionService = PredictionService();
+  final StorageService _storageService = StorageService();
 
-  @override
-  void initState() {
-    super.initState();
+  Future<ListView> _predictionCardListView() async {
+    final predictions = await _storageService.loadPredictionData();
+    final List<PredictionCard> predictionCards = [];
+
+    for (var prediction in predictions) {
+      final image = await _storageService.loadPredictionImage(prediction.filename);
+      if (image != null) {
+        predictionCards.add(PredictionCard(prediction: prediction, image: image));
+      }
+    }
+
+    return ListView(
+      padding: const EdgeInsets.all(16),
+      children: predictionCards,
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
     return MainScaffold(
-      title: AppConstants.RESULT,
-
-      body: Text("@TODO: implementeren predictioncards laten zien")
-
+      title: AppStrings.appName,
+      body: FutureBuilder<ListView>(
+        future: _predictionCardListView(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
+          } else if (snapshot.hasError) {
+            return Center(child: Text("Fout bij laden: ${snapshot.error}"));
+          } else if (snapshot.hasData) {
+            return snapshot.data!;
+          } else {
+            return const Center(child: Text("Geen voorspellingen gevonden."));
+          }
+        },
+      ),
     );
   }
 }

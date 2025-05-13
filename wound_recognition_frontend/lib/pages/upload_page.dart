@@ -95,15 +95,14 @@ class _UploadPageState extends State<UploadPage> {
   void _pollForResult(String filename) async
   {
     var result = await _predictionService!.polling(filename);
-    print("poll gestart");
+
     if (result) {
-      print("result gevonden");
       setState(() {
         _predictionReady = true;
         _isUploading = false;
       });
       if (_predictionFilename != null) {
-        print("navigeren gestart");
+
         _navigateToResultPage();
       }
     }

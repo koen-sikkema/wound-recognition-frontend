@@ -13,6 +13,7 @@ class PredictionCard extends StatelessWidget {
     required this.image,
   });
 
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context); // Haal het huidige thema op
