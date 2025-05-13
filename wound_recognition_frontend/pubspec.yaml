@@ -13,7 +13,7 @@ dependencies:
   cupertino_icons: ^1.0.8
   flutter_test:
     sdk: flutter
-
+  path_provider: ^2.1.2
   image_picker: ^1.0.7
   file_picker: ^10.1.2
   go_router: ^15.1.1

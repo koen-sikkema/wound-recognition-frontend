@@ -37,4 +37,10 @@ class PickedImage {
     }
     return const SizedBox.shrink();
   }
+  Future<File> copy(String newPath) async {
+    final bytes = await getBytes();
+    if (bytes == null) throw Exception("Image has no bytes");
+    final file = File(newPath);
+    return await file.writeAsBytes(bytes);
+  }
 }

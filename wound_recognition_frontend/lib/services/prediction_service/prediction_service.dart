@@ -47,7 +47,7 @@ class PredictionService {
     final data = jsonDecode(response.body);
     String label = data["label"];
     double confidence = data["confidence"];
-    Prediction prediction = Prediction(filename, label, confidence);
+    Prediction prediction = Prediction(filename: filename, label: label, confidence: confidence);
     return prediction;
   }
 }

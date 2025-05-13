@@ -6,7 +6,7 @@ import 'package:go_router/go_router.dart';
 import 'package:wound_recognition_frontend/constants/app_constants.dart';
 import 'package:wound_recognition_frontend/factories/factories.dart';
 import 'package:wound_recognition_frontend/services/image_picker_service/picked_image.dart';
-import 'package:wound_recognition_frontend/services/prediction_service/polling_prediction_service.dart';
+import 'package:wound_recognition_frontend/services/prediction_service/prediction_service.dart';
 import 'package:wound_recognition_frontend/services/upload_service/Iuploader.dart';
 import 'package:wound_recognition_frontend/widgets/pick_image_button.dart';
 import '../routes/result_page_args.dart';

@@ -5,7 +5,7 @@ import 'package:flutter/foundation.dart'; // voor kIsWeb
 import '../services/image_picker_service/IImage_picker.dart';
 import '../services/image_picker_service/web_image_picker.dart';
 import '../services/image_picker_service/mobile_image_picker.dart';
-import '../services/prediction_service/polling_prediction_service.dart';
+import '../services/prediction_service/prediction_service.dart';
 
 
 Iuploader getUploader(){

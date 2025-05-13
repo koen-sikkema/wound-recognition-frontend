@@ -2,16 +2,26 @@
 
 class Prediction
 {
-  final String _filename;
-  final String _label;
-  final double _confidence;
+  final String filename;
+  final String label;
+  final double confidence;
 
-  Prediction(String filename, String label, double confidence)
-      : _filename = filename,
-        _label = label,
-        _confidence = confidence;
+  Prediction({
+    required this.filename,
+    required this.label,
+    required this.confidence
+  });
 
-  String get filename => _filename;
-  String get label => _label;
-  double get confidence => _confidence;
+  Map<String, dynamic> toJson() => {
+    "filename": filename,
+    "label": label,
+    "confidence": confidence,
+  };
+
+  static Prediction fromJson(Map<String, dynamic> json) => Prediction(
+    filename: json['fileName'],
+    confidence: json['confidence'],
+    label: json['label'],
+  );
 }
+
