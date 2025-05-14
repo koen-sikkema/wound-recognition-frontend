@@ -20,14 +20,16 @@ import 'package:wound_recognition_frontend/constants/app_strings.dart';
 import '../widgets/upload_button.dart';
 import 'package:camera/camera.dart';
 
-class UploadPage extends StatefulWidget {
+class UploadPage extends StatefulWidget
+{
   const UploadPage({super.key});
 
   @override
   State<UploadPage> createState() => _UploadPageState();
 }
 
-class _UploadPageState extends State<UploadPage> {
+class _UploadPageState extends State<UploadPage>
+{
   // dependencies
   Iuploader? _uploader;
   IImagePicker? _imagePicker;
@@ -44,14 +46,16 @@ class _UploadPageState extends State<UploadPage> {
   final TextEditingController _filenameController = TextEditingController();
 
   @override
-  void initState() {
+  void initState()
+  {
     super.initState();
     _uploader = getUploader();
     _imagePicker = getImagePicker();
     _predictionService = getResultChecker();
   }
 
-  Future<void> _onRefresh() async {
+  Future<void> _onRefresh() async
+  {
     setState(() {
       _isUploading = false;
       _predictionReady = false;
@@ -67,7 +71,8 @@ class _UploadPageState extends State<UploadPage> {
     super.dispose();
   }
 
-  void _chooseImage() async {
+  void _chooseImage() async
+  {
     final chosen = await _imagePicker?.pickImage();
     if (chosen != null) {
       setState(() {
@@ -76,7 +81,8 @@ class _UploadPageState extends State<UploadPage> {
     }
   }
 
-  void _uploadImage() async {
+  void _uploadImage() async
+  {
     setState(() {
       _isUploading = true;
       _predictionReady = false;
@@ -108,7 +114,8 @@ class _UploadPageState extends State<UploadPage> {
     }
   }
 
-  void _navigateToResultPage() {
+  void _navigateToResultPage()
+  {
     if (!mounted) return;
     context.go(
       AppConstants.RESULTROUTE,
@@ -119,7 +126,8 @@ class _UploadPageState extends State<UploadPage> {
     );
   }
 
-  void _startCamera() async {
+  void _startCamera() async
+  {
     final image = await _imagePicker?.pickImageFromCamera();
 
     if (image != null) {
@@ -130,7 +138,8 @@ class _UploadPageState extends State<UploadPage> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context)
+  {
     final theme = Theme.of(context);
 
     return MainScaffold(

@@ -22,10 +22,12 @@ class MobileImagePicker implements IImagePicker
     return null;
   }
   @override
-  Future<PickedImage?> pickImageFromCamera() async {
+  Future<PickedImage?> pickImageFromCamera() async
+  {
     final pickedFile = await _picker.pickImage(source: ImageSource.camera);
 
-    if (pickedFile != null) {
+    if (pickedFile != null)
+    {
       return PickedImage(file: File(pickedFile.path));
     }
     return null;

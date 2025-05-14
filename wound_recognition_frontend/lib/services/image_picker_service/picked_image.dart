@@ -8,7 +8,8 @@ class PickedImage {
 
   PickedImage({this.webBytes, this.file});
 
-  Future<Uint8List?> getBytes() async {
+  Future<Uint8List?> getBytes() async
+  {
     if (webBytes != null) return webBytes;
     if (file != null) return await file!.readAsBytes();
     return null;
@@ -19,7 +20,8 @@ class PickedImage {
     double? width,
     double? height,
   }) {
-    if (webBytes != null) {
+    if (webBytes != null)
+    {
       return Image.memory(
         webBytes!,
         fit: fit,
@@ -27,7 +29,8 @@ class PickedImage {
         height: height ?? double.infinity,  // Default to double.infinity if not specified
       );
     }
-    if (file != null) {
+    if (file != null)
+    {
       return Image.file(
         file!,
         fit: fit,
@@ -37,14 +40,16 @@ class PickedImage {
     }
     return const SizedBox.shrink();
   }
-  Future<File> copy(String newPath) async {
+  Future<File> copy(String newPath) async
+  {
     final bytes = await getBytes();
     if (bytes == null) throw Exception("Image has no bytes");
     final file = File(newPath);
     return await file.writeAsBytes(bytes);
   }
 
-  static Future<PickedImage?> fromFile(File file) async {
+  static Future<PickedImage?> fromFile(File file) async
+  {
      return PickedImage(file: file);
   }
 }

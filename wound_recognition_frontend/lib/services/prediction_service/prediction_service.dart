@@ -6,7 +6,8 @@ import 'prediction.dart';
 class PredictionService {
   var counter = 0;
 
-  Future<bool> polling(String filename) async {
+  Future<bool> polling(String filename) async
+  {
     var isResult = false;
     while (!isResult){
       await Future.delayed(const Duration(seconds: 2));
@@ -15,18 +16,22 @@ class PredictionService {
     return isResult;
   }
 
-  Future<bool> checkResult(String filename) async {
+  Future<bool> checkResult(String filename) async
+  {
     try {
       final response = await http.get(
         Uri.parse("${AppConstants.RESULTURIMOBILERODEN}?filename=$filename"),
       );
 
-      if (response.statusCode == 200) {
+      if (response.statusCode == 200)
+      {
         final data = jsonDecode(response.body);
         return data["label"] != null;
-      } else if (response.statusCode == 202) {
+      } else if (response.statusCode == 202)
+      {
         return false;
-      } else {
+      } else
+      {
         return false;
       }
     } catch (e) {
@@ -35,7 +40,8 @@ class PredictionService {
     }
   }
 
-  Future<Prediction> getPredictionOnFilename(String filename) async {
+  Future<Prediction> getPredictionOnFilename(String filename) async
+  {
     final response = await http.get(
       Uri.parse("${AppConstants.RESULTURIMOBILERODEN}?filename=$filename"),
     );
