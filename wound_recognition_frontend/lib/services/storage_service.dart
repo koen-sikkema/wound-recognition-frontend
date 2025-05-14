@@ -27,14 +27,10 @@ class StorageService {
     await file.writeAsString(encoded);
   }
 
-  Future<void> savePredictionAndImage(PickedImage image, String filename, double confidence, String label) async{
-    savePredictionImage(image, filename);
-    final data = Prediction(
-        filename: filename,
-        label: label,
-        confidence: confidence
-      );
-    savePredictionData(data);
+  Future<void> savePredictionAndImage(PickedImage image, String filename, double confidence, String label) async {
+    await savePredictionImage(image, filename);
+    final data = Prediction(filename: filename, label: label, confidence: confidence);
+    await savePredictionData(data);
   }
 
   Future<PickedImage?> loadPredictionImage(String filename) async {

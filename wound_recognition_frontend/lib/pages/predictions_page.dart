@@ -18,7 +18,7 @@ class _PredictionPageState extends State<PredictionsPage> {
   final PredictionService predictionService = PredictionService();
   final StorageService _storageService = StorageService();
 
-  Future<ListView> _predictionCardListView() async {
+  Future<Column> _predictionCardView() async {
     final predictions = await _storageService.loadPredictionData();
     final List<PredictionCard> predictionCards = [];
 
@@ -29,8 +29,8 @@ class _PredictionPageState extends State<PredictionsPage> {
       }
     }
 
-    return ListView(
-      padding: const EdgeInsets.all(16),
+    return Column(
+      spacing: 10.0,
       children: predictionCards,
     );
   }
@@ -39,8 +39,8 @@ class _PredictionPageState extends State<PredictionsPage> {
   Widget build(BuildContext context) {
     return MainScaffold(
       title: AppStrings.appName,
-      body: FutureBuilder<ListView>(
-        future: _predictionCardListView(),
+      body: FutureBuilder<Column>(
+        future: _predictionCardView(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());

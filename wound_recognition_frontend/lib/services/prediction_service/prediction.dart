@@ -19,7 +19,7 @@ class Prediction
   };
 
   static Prediction fromJson(Map<String, dynamic> json) => Prediction(
-    filename: json['fileName'],
+    filename: json['filename'],
     confidence: json['confidence'],
     label: json['label'],
   );

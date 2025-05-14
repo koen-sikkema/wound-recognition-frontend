@@ -13,7 +13,6 @@ class ResultPage extends StatefulWidget {
   final PickedImage image;
   final String filename;
 
-
   const ResultPage({super.key, required this.image, required this.filename});
 
   @override
@@ -34,8 +33,8 @@ class _ResultPageState extends State<ResultPage> {
     _storageService.savePredictionAndImage(
         image,
         snapshot.data.filename,
-        snapshot.data.label,
         snapshot.data.confidence,
+        snapshot.data.label,
     );
   }
 
@@ -92,7 +91,6 @@ class _ResultPageState extends State<ResultPage> {
           } else {
             return const Center(child: Text("Geen voorspelling gevonden"));
           }
-
         },
       ),
     );

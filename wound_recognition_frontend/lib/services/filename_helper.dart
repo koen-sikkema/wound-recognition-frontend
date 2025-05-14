@@ -11,7 +11,7 @@ class FilenameHelper
         DateTime.now()
     );
     final uuid = const Uuid().v4();
-    return 'date_${timestamp}u_$uuid.jpg';
+    return 'Date_${timestamp}u_$uuid.jpg';
   }
 
   static String getFinalFilename(String? customName)
