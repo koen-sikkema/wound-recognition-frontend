@@ -1,4 +1,3 @@
-import 'dart:developer' as Logger;
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -161,7 +160,7 @@ class _UploadPageState extends State<UploadPage>
               "Vul een bestandnaam in of laat leeg om een te laten genereren",
               textAlign: TextAlign.center,
               style: TextStyle(
-                  fontSize: 20, fontWeight: FontWeight.bold, color: Colors.cyan),
+                  fontSize: 20, fontWeight: FontWeight.bold, color: theme.primaryColor),
             ),
             const SizedBox(height: 12),
             FilenameTextField(controller: _filenameController),

@@ -35,6 +35,7 @@ class _ResultPageState extends State<ResultPage> {
         snapshot.data.filename,
         snapshot.data.confidence,
         snapshot.data.label,
+        snapshot.data.timestamp
     );
   }
 

@@ -32,13 +32,15 @@ class StorageService {
     await file.writeAsString(encoded);
   }
 
-  Future<void> savePredictionAndImage(PickedImage image, String filename, double confidence, String label) async
+  Future<void> savePredictionAndImage(PickedImage image, String filename, double confidence, String label, DateTime timestamp) async
   {
     await savePredictionImage(image, filename);
     final data = Prediction(
         filename: filename,
         label: label,
-        confidence: confidence
+        confidence: confidence,
+        timestamp: timestamp,
+
     );
     await savePredictionData(data);
   }
@@ -65,5 +67,26 @@ class StorageService {
     final contents = await file.readAsString();
     final List decoded = jsonDecode(contents);
     return decoded.map((e) => Prediction.fromJson(e)).toList();
+  }
+
+  Future<void> deletePrediction(Prediction prediction) async {
+    final dir = await getApplicationDocumentsDirectory();
+
+    // find the image
+    final imageFile = File('${dir.path}/${prediction.filename}');
+    // delete image
+    if (await imageFile.exists()) {
+      await imageFile.delete();
+    }
+    //read through predictions.json
+    final jsonFile = File('${dir.path}/predictions.json');
+    if (!await jsonFile.exists()) return;
+
+    final contents = await jsonFile.readAsString();
+    final List decoded = jsonDecode(contents);
+    // decode everything except deleted file
+    final updated = decoded.where((e) => e['filename'] != prediction.filename).toList();
+    // encode again
+    await jsonFile.writeAsString(jsonEncode(updated));
   }
 }

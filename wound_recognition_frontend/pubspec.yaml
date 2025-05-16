@@ -34,7 +34,7 @@ flutter:
 
 flutter_native_splash:
   color: "B3E5FC"
-  image: "assets/WondherkenningsPoster.png" # je logo
+  image_path: "assets/WondherkenningsPoster.png"
   android: true
   ios: true
 

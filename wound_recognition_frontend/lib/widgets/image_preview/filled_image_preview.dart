@@ -17,7 +17,7 @@ class FilledImagePreview extends StatelessWidget {
         constraints.maxWidth > 600 ? 600.0 : constraints.maxWidth * 0.9;
 
         return Center(
-          child: Container(
+          child: SizedBox(
             width: previewWidth,
             child: AspectRatio(
               aspectRatio: 4 / 3,
