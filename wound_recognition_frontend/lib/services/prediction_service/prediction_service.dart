@@ -9,9 +9,10 @@ class PredictionService {
   Future<bool> polling(String filename) async
   {
     var isResult = false;
-    while (!isResult){
+    while (!isResult && counter<15){
       await Future.delayed(const Duration(seconds: 2));
       isResult = await checkResult(filename);
+      counter++;
     }
     return isResult;
   }
@@ -20,7 +21,7 @@ class PredictionService {
   {
     try {
       final response = await http.get(
-        Uri.parse("${AppConstants.RESULTURIMOBILERODEN}?filename=$filename"),
+        Uri.parse("${AppConstants.RESULTURIMOBILEGRONINGEN}?filename=$filename"),
       );
 
       if (response.statusCode == 200)
@@ -43,7 +44,7 @@ class PredictionService {
   Future<Prediction> getPredictionOnFilename(String filename) async
   {
     final response = await http.get(
-      Uri.parse("${AppConstants.RESULTURIMOBILERODEN}?filename=$filename"),
+      Uri.parse("${AppConstants.RESULTURIMOBILEGRONINGEN}?filename=$filename"),
     );
 
     final data = jsonDecode(response.body);

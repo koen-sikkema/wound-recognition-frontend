@@ -7,6 +7,7 @@ class AppConstants {
   static const String SERVERURIMOBILERODEN = 'http://172.16.2.220:8000/';
   static const String RESULTURIMOBILERODEN = 'http://172.16.2.220:8000/predict/';
   static const String UPLOADURIMOBILERODEN = 'http://172.16.2.220:8000/upload/';
+
   static const String SERVERURIMOBILEGRONINGEN = 'http://192.168.1.60:8000/';
   static const String RESULTURIMOBILEGRONINGEN = 'http://192.168.1.60:8000/predict/';
   static const String UPLOADURIMOBILEGRONINGEN = 'http://192.168.1.60:8000/upload/';

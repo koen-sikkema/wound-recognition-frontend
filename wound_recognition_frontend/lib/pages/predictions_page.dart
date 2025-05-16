@@ -25,6 +25,7 @@ class _PredictionPageState extends State<PredictionsPage> {
     for (var prediction in predictions) {
       final image = await _storageService.loadPredictionImage(prediction.filename);
       if (image != null) {
+
         predictionCards.add(PredictionCard(prediction: prediction, image: image));
       }
     }
