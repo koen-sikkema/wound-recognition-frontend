@@ -1,22 +1,22 @@
 
 class AppConstants {
   static const String APPNAME = 'WondherkenningsApplicatie';
-  static const String UPLOADURI = 'http://localhost:8000/upload/';
-  static const String RESULTURI = 'http://localhost:8000/predict/';
-  static const String SERVERURI = 'http://localhost:8000/';
-  // 10.51.40.212
 
-  static const String SERVERURIMOBILEHANZE = 'http://10.51.40.212:8000/';
-  static const String RESULTURIMOBILEHANZE = 'http://10.51.40.212:8000/predict/';
-  static const String UPLOADURIMOBILEHANZE = 'http://10.51.40.212:8000/upload/';
+  static const String PREDICTIONSURI = 'http://localhost:8000/predictions/';
+  static const String UPLOADURI = 'http://localhost:8000/upload/';
+  static const String RESULTURI = 'http://localhost:8000/results/';
+  static const String SERVERURI = 'http://localhost:8000/';
+
 
   static const String SERVERURIMOBILERODEN = 'http://172.16.2.220:8000/';
-  static const String RESULTURIMOBILERODEN = 'http://172.16.2.220:8000/predict/';
+  static const String RESULTURIMOBILERODEN = 'http://172.16.2.220:8000/results/';
   static const String UPLOADURIMOBILERODEN = 'http://172.16.2.220:8000/upload/';
+  static const String PREDICTIONSURIMOBILERODEN = 'http://172.16.2.220:8000/predictions/';
 
   static const String SERVERURIMOBILEGRONINGEN = 'http://192.168.1.60:8000/';
-  static const String RESULTURIMOBILEGRONINGEN = 'http://192.168.1.60:8000/predict/';
+  static const String RESULTURIMOBILEGRONINGEN = 'http://192.168.1.60:8000/results/';
   static const String UPLOADURIMOBILEGRONINGEN = 'http://192.168.1.60:8000/upload/';
+  static const String PREDICTIONSURIMOBILEGRONINGEN = 'http://192.168.1.60:8000/predictions/';
 
   static const String POST = 'post';
   static const String GET = 'get';
