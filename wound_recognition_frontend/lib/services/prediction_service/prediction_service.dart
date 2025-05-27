@@ -21,7 +21,7 @@ class PredictionService {
   {
     try {
       final response = await http.get(
-        Uri.parse("${AppConstants.RESULTURIMOBILERODEN}?filename=$filename"),
+        Uri.parse("${AppConstants.RESULT_URI_MOBILE_RODEN}?filename=$filename"),
       );
 
       if (response.statusCode == 200)
@@ -44,7 +44,7 @@ class PredictionService {
   Future<Prediction> getPredictionOnFilename(String filename) async
   {
     final response = await http.get(
-      Uri.parse("${AppConstants.RESULTURIMOBILERODEN}?filename=$filename"),
+      Uri.parse("${AppConstants.RESULT_URI_MOBILE_RODEN}?filename=$filename"),
     );
 
     final data = jsonDecode(response.body);

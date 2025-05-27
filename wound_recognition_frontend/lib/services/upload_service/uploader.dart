@@ -27,7 +27,7 @@ class Uploader implements Iuploader
         (
         'POST',
         Uri.parse(
-            AppConstants.UPLOADURIMOBILERODEN
+            AppConstants.UPLOAD_URI_MOBILE_RODEN
         ),
       );
 

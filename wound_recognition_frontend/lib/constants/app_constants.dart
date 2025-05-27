@@ -1,22 +1,24 @@
 
 class AppConstants {
-  static const String APPNAME = 'WondherkenningsApplicatie';
+  static const String APP_NAME = 'WondherkenningsApplicatie';
 
-  static const String PREDICTIONSURI = 'http://localhost:8000/predictions/';
-  static const String UPLOADURI = 'http://localhost:8000/upload/';
-  static const String RESULTURI = 'http://localhost:8000/results/';
-  static const String SERVERURI = 'http://localhost:8000/';
+  static const String PREDICTIONS_URI = 'http://localhost:8000/predictions/';
+  static const String UPLOAD_URI = 'http://localhost:8000/upload/';
+  static const String RESULT_URI = 'http://localhost:8000/results/';
+  static const String SERVER_URI = 'http://localhost:8000/';
+  static const String PREDICTION_HISTORY = 'http://localhost:8000/history/';
 
-
-  static const String SERVERURIMOBILERODEN = 'http://172.16.2.220:8000/';
-  static const String RESULTURIMOBILERODEN = 'http://172.16.2.220:8000/results/';
-  static const String UPLOADURIMOBILERODEN = 'http://172.16.2.220:8000/upload/';
-  static const String PREDICTIONSURIMOBILERODEN = 'http://172.16.2.220:8000/predictions/';
+  static const String SERVER_URI_MOBILE_RODEN = 'http://172.16.2.220:8000/';
+  static const String RESULT_URI_MOBILE_RODEN = 'http://172.16.2.220:8000/results/';
+  static const String UPLOAD_URI_MOBILE_RODEN = 'http://172.16.2.220:8000/upload/';
+  static const String PREDICTIONS_URI_MOBILE_RODEN = 'http://172.16.2.220:8000/predictions/';
+  static const String PREDICTION_HISTORY_RODEN = 'http://172.16.2.220:8000/history/';
 
   static const String SERVERURIMOBILEGRONINGEN = 'http://192.168.1.60:8000/';
   static const String RESULTURIMOBILEGRONINGEN = 'http://192.168.1.60:8000/results/';
   static const String UPLOADURIMOBILEGRONINGEN = 'http://192.168.1.60:8000/upload/';
   static const String PREDICTIONSURIMOBILEGRONINGEN = 'http://192.168.1.60:8000/predictions/';
+  static const String PREDICTIONHISTORYGRONINGEN = 'http://192.168.1.60:8000/history/';
 
   static const String POST = 'post';
   static const String GET = 'get';
@@ -24,4 +26,5 @@ class AppConstants {
   static const String UPLOADROUTE = '/';
   static const String RESULTROUTE = '/result';
   static const String PREDICTIONSROUTE = '/predictions';
+  static const String PREDICTIONHISTORYROUTE = '/history';
 }

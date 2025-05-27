@@ -5,12 +5,14 @@ class Prediction
   final String label;
   final double confidence;
   final DateTime timestamp;
+  final String? base64Image;
 
   Prediction({
     required this.filename,
     required this.label,
     required this.confidence,
-    required this.timestamp
+    required this.timestamp,
+    this.base64Image,
   });
 
   Map<String, dynamic> toJson() => {
@@ -18,6 +20,7 @@ class Prediction
     "label": label,
     "confidence": confidence,
     "timestamp": timestamp.toIso8601String(),
+    "base64Image": base64Image,
   };
 
   static Prediction fromJson(Map<String, dynamic> json) => Prediction(
@@ -27,6 +30,7 @@ class Prediction
     timestamp: json['timestamp'] != null
         ? DateTime.parse(json['timestamp'])
         : DateTime.now(),
+    base64Image: json["image"],
   );
 }
 

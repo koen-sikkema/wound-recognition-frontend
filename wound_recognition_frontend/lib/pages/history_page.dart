@@ -1,26 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:wound_recognition_frontend/constants/app_strings.dart';
 import 'package:wound_recognition_frontend/services/image_picker_service/picked_image.dart';
+import 'package:wound_recognition_frontend/services/prediction_history_service.dart';
 import 'package:wound_recognition_frontend/services/prediction_service/prediction.dart';
-import 'package:wound_recognition_frontend/services/prediction_service/prediction_service.dart';
 import 'package:wound_recognition_frontend/services/storage_service.dart';
 import 'package:wound_recognition_frontend/widgets/MainScaffold/main_scaffold.dart';
 import 'package:wound_recognition_frontend/widgets/prediction_card.dart';
 import 'package:wound_recognition_frontend/widgets/prediction_card_fullscreen_overlay.dart';
 
-class PredictionsPage extends StatefulWidget {
+class HistoryPage extends StatefulWidget {
 
 
-  const PredictionsPage({
+  const HistoryPage({
     super.key
   });
 
   @override
-  State<PredictionsPage> createState() => _PredictionPageState();
+  State<HistoryPage> createState() => _HistoryPageState();
 }
 
-class _PredictionPageState extends State<PredictionsPage> {
-  final PredictionService predictionService = PredictionService();
+class _HistoryPageState extends State<HistoryPage> {
+  final PredictionHistoryService predictionHistoryService = PredictionHistoryService();
   final StorageService _storageService = StorageService();
   bool _showOverlay = false;
   Prediction? _selectedPrediction;
@@ -36,14 +36,14 @@ class _PredictionPageState extends State<PredictionsPage> {
       if (image != null) {
 
         predictionCards.add(PredictionCard(
-            prediction: prediction,
-            image: image,
-            onDelete: () =>_handleDelete(prediction),
-            onTap: () => setState(() {
-              _selectedImage = image;
-              _selectedPrediction = prediction;
-              _showOverlay = true;
-            }),
+          prediction: prediction,
+          image: image,
+          onDelete: () =>_handleDelete(prediction),
+          onTap: () => setState(() {
+            _selectedImage = image;
+            _selectedPrediction = prediction;
+            _showOverlay = true;
+          }),
         ));
       }
     }
@@ -77,11 +77,7 @@ class _PredictionPageState extends State<PredictionsPage> {
 
     if (confirmed == true) {
       await _storageService.deletePrediction(prediction);
-      setState(() {
-        _showOverlay = false;
-        _selectedPrediction = null;
-        _selectedImage = null;
-      }); // update UI
+      setState(() {}); // update UI
     }
   }
 
@@ -92,36 +88,36 @@ class _PredictionPageState extends State<PredictionsPage> {
       body: Stack(
         children: [
           if (!_showOverlay && _selectedPrediction == null && _selectedImage == null)
-        FutureBuilder<Column>(
-        future: _predictionCardView(),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
-          } else if (snapshot.hasError) {
-            return Center(child: Text("Fout bij laden: ${snapshot.error}"));
-          } else if (snapshot.hasData) {
-            return snapshot.data!;
-          } else {
-            return const Center(child: Text("Geen voorspellingen gevonden."));
-          }
-        },
-      ),
-           if (_showOverlay && _selectedPrediction != null && _selectedImage != null)
-            SizedBox(
-            height: MediaQuery.of(context).size.height - kToolbarHeight,
-            child:
-            PredictionCardOverlay(
-              prediction: _selectedPrediction!,
-              image: _selectedImage!,
-              onDelete: () => _handleDelete(_selectedPrediction),
-              onClose: () {
-                setState(() {
-                  _showOverlay = false;
-                  _selectedPrediction = null;
-                  _selectedImage = null;
-                });
+            FutureBuilder<Column>(
+              future: _predictionCardView(),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const Center(child: CircularProgressIndicator());
+                } else if (snapshot.hasError) {
+                  return Center(child: Text("Fout bij laden: ${snapshot.error}"));
+                } else if (snapshot.hasData) {
+                  return snapshot.data!;
+                } else {
+                  return const Center(child: Text("Geen voorspellingen gevonden."));
+                }
               },
             ),
+          if (_showOverlay && _selectedPrediction != null && _selectedImage != null)
+            SizedBox(
+              height: MediaQuery.of(context).size.height - kToolbarHeight,
+              child:
+              PredictionCardOverlay(
+                prediction: _selectedPrediction!,
+                image: _selectedImage!,
+                onDelete: () => _handleDelete(_selectedPrediction),
+                onClose: () {
+                  setState(() {
+                    _showOverlay = false;
+                    _selectedPrediction = null;
+                    _selectedImage = null;
+                  });
+                },
+              ),
             ),
         ],
       ),
