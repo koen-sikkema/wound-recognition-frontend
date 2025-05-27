@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <application
-        android:label="wound_recognition_frontend"
+        android:label="Wondherkenning"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
