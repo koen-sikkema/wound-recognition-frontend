@@ -29,7 +29,7 @@ class _PredictionPageState extends State<PredictionsPage> {
   Future<Column> _predictionCardView() async {
     final predictions = await _storageService.loadPredictionData();
     final List<PredictionCard> predictionCards = [];
-    predictions.sort((a, b) => a.timestamp.compareTo(b.timestamp));
+    predictions.sort((a, b) => b.timestamp.compareTo(a.timestamp));
 
     for (var prediction in predictions) {
       final image = await _storageService.loadPredictionImage(prediction.filename);

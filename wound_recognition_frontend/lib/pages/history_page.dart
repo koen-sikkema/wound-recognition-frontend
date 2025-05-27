@@ -6,7 +6,7 @@ import 'package:wound_recognition_frontend/services/prediction_service/predictio
 import 'package:wound_recognition_frontend/services/storage_service.dart';
 import 'package:wound_recognition_frontend/widgets/MainScaffold/main_scaffold.dart';
 import 'package:wound_recognition_frontend/widgets/prediction_card.dart';
-import 'package:wound_recognition_frontend/widgets/prediction_card_fullscreen_overlay.dart'; // Check of hier de juiste naam staat
+import 'package:wound_recognition_frontend/widgets/prediction_card_fullscreen_overlay.dart';
 
 class HistoryPage extends StatefulWidget {
   const HistoryPage({super.key});
@@ -58,7 +58,7 @@ class _HistoryPageState extends State<HistoryPage> {
       builder: (context) => AlertDialog(
         title: const Text('🗑️ ALLE Voorspellingen verwijderen'),
         content: const Text(
-            'Weet je zeker dat je ALLE voorspellingen wilt verwijderen? Deze actie kan NIET ongedaan worden gemaakt.'),
+            'Weet je zeker dat je ALLE voorspellingen van de SERVER wilt verwijderen? Deze actie kan NIET ongedaan worden gemaakt.'),
         actions: [
           TextButton.icon(
             icon: const Icon(Icons.close),
@@ -98,23 +98,40 @@ class _HistoryPageState extends State<HistoryPage> {
               child: Container(
                 color: Colors.grey[200],
                 padding: const EdgeInsets.all(8),
-                child: const Text(
-                  "Deze pagina geeft inzicht in alle voorspellingen in de server.",
-                    style: TextStyle(fontSize: 14),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Icon(Icons.info_outline, color: Colors.blueGrey),
+                    const SizedBox(width: 8),
+                    const Expanded(
+                      child: Text(
+                        "Deze pagina geeft inzicht in alle voorspellingen in de server.",
+                        style: TextStyle(fontSize: 14),
+                        textAlign: TextAlign.left,
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),
-            ElevatedButton(
+            ElevatedButton.icon(
+              icon: const Icon(Icons.cloud_download),
+              label: const Text("Voorspellingen Ophalen"),
               onPressed: () {
                 setState(() {
                   _getPredictionHistory = true;
                 });
               },
-              child: const Text("Voorspellingen Ophalen"),
             ),
-            ElevatedButton(
+            const SizedBox(height: 8),
+            ElevatedButton.icon(
+              icon: const Icon(Icons.delete_forever),
+              label: const Text("Voorspellingen Verwijderen"),
               onPressed: _handleDelete,
-              child: const Text("Voorspellingen Verwijderen"),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.red,
+                foregroundColor: Colors.white,
+              ),
             ),
           ],
         ),
@@ -122,6 +139,11 @@ class _HistoryPageState extends State<HistoryPage> {
     } else {
       return MainScaffold(
         title: AppStrings.appName,
+        onRefresh: () async {
+          setState(() {
+            _getPredictionHistory = false;
+          });
+        },
         body: Stack(
           children: [
             if (!_showOverlay && _selectedPrediction == null && _selectedImage == null)
@@ -133,7 +155,7 @@ class _HistoryPageState extends State<HistoryPage> {
                   } else if (snapshot.hasError) {
                     return Center(child: Text("Fout bij laden: ${snapshot.error}"));
                   } else if (snapshot.hasData) {
-                    return snapshot.data!;  // zonder SingleChildScrollView
+                    return snapshot.data!;
                   } else {
                     return const Center(child: Text("Geen voorspellingen gevonden."));
                   }

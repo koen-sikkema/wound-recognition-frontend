@@ -20,13 +20,26 @@ class MainScaffold extends StatelessWidget {
         child: ListView(
           padding: const EdgeInsets.all(16),
           children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: const [
+                Icon(Icons.refresh, color: Colors.grey),
+                SizedBox(width: 6),
+                Text(
+                  'Sleep naar beneden om te verversen',
+                  style: TextStyle(color: Colors.grey),
+                ),
+              ],
+            ),
+            const SizedBox(height: 12),
             body,
           ],
-        )
+        ),
       ),
       bottomNavigationBar: bottomNavigationBar,
     );
   }
+
   Future<void> _handleRefresh() async
   {
     Future.delayed(const Duration(seconds: 1));
