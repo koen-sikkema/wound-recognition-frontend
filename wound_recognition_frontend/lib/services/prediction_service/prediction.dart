@@ -1,11 +1,14 @@
 
+import 'dart:convert';
+import 'dart:typed_data';
+
 class Prediction
 {
   final String filename;
   final String label;
   final double confidence;
   final DateTime timestamp;
-  final String? base64Image;
+  final Uint8List? base64Image;
 
   Prediction({
     required this.filename,
@@ -30,7 +33,9 @@ class Prediction
     timestamp: json['timestamp'] != null
         ? DateTime.parse(json['timestamp'])
         : DateTime.now(),
-    base64Image: json["image"],
+    base64Image: json['woundImage'] != null
+        ? base64Decode(json['woundImage'])
+        : null,
   );
 }
 

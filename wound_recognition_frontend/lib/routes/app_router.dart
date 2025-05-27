@@ -1,5 +1,6 @@
 
 import 'package:go_router/go_router.dart';
+import 'package:wound_recognition_frontend/pages/history_page.dart';
 import 'package:wound_recognition_frontend/pages/predictions_page.dart';
 import '../pages/result_page.dart';
 import '../constants/app_constants.dart';
@@ -24,8 +25,12 @@ final GoRouter appRouter = GoRouter(
       }
     ),
     GoRoute(
-      path: AppConstants.PREDICTIONSROUTE,
+      path: AppConstants.PREDICTIONS_ROUTE,
       builder: (context, state) => const PredictionsPage(),
+    ),
+    GoRoute(
+      path: AppConstants.PREDICTION_HISTORY_ROUTE,
+      builder: (context, state) => const HistoryPage(),
     ),
   ],
 );

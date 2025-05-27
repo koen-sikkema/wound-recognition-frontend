@@ -76,7 +76,7 @@ class _ResultPageState extends State<ResultPage> {
                       ),
                     ),
                     ElevatedButton(
-                      onPressed: () => context.go(AppConstants.PREDICTIONSROUTE),
+                      onPressed: () => context.go(AppConstants.PREDICTIONS_ROUTE),
                       child: Text(
                         AppStrings.predictionsPage,
                         style: theme.textTheme.bodyLarge?.copyWith(
