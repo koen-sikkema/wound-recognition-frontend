@@ -100,4 +100,5 @@ This project is released under the **MIT License** — see [`LICENSE`](LICENSE) 
 
 ---
 
-> _Made with ❤️ during a Health-Hub Roden internship — exploring AI innovations in wound care._
+>👤 **Author**: Koen Sikkema  
+🧑‍🏫 **Supervised by**: Egbert Wiltens, on behalf of [**Health Hub Roden**](https://www.health-hub.eu/home)
