@@ -21,7 +21,6 @@ class PredictionCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context); // get theme @todo check correctness
     double screenWidth = MediaQuery.of(context).size.width; // get width
-
     return Card(
       elevation: 4,
       margin: EdgeInsets.symmetric(horizontal: screenWidth * 0.05, vertical: 16), // Responsive margin
