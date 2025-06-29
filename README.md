@@ -42,52 +42,6 @@ lib/
 - **Flutter 3.19+** – [install guide](https://docs.flutter.dev/get-started/install)
 - A running instance of the [wound-recognition-backend](https://github.com/koen-sikkema/wound-recognition-backend)
 
-### 1. Clone & install
-
-```bash
-git clone https://github.com/koen-sikkema/wound-recognition-frontend.git
-cd wound-recognition-frontend
-flutter pub get
-```
-
-### 2. Configure API endpoint
-
-Edit ``
-
-```dart
-class AppConstants {
-  // Change if backend runs on a different host/port
-  static const String BASE_URL = 'http://localhost:8000';
-}
-```
-
-### 3. Run (mobile or web)
-
-```bash
-# Android/iOS
-flutter run
-
-# Web
-flutter run -d chrome
-```
-
----
-
-## 🧪 Tests
-
-> This POC focuses on backend test coverage.\
-> Front-end functionality was manually verified (navigation, upload, polling, local storage).\
-> Future work: add `flutter_test` widget tests and `integration_test` E2E flows.
-
----
-
-## 📚 Documentation
-
-- **Software Architectuur Document (SAD)** — full C4 model, code views, test strategy
-- **Backend repo** – FastAPI service & ML pipeline\
-  [https://github.com/koen-sikkema/wound-recognition-backend](https://github.com/koen-sikkema/wound-recognition-backend)
-
----
 
 ## 📦 Build & Install APK (Android – without Play Store)
 
@@ -146,6 +100,23 @@ build/app/outputs/flutter-apk/app-release.apk
 > 💡 Make sure your backend is reachable from your device and allows CORS requests.
 
 ---
+
+## 🧪 Tests
+
+> This POC focuses on backend test coverage.\
+> Front-end functionality was manually verified (navigation, upload, polling, local storage).\
+> Future work: add `flutter_test` widget tests and `integration_test` E2E flows.
+
+---
+
+## 📚 Documentation
+
+- **Software Architectuur Document (SAD)** — full C4 model, code views, test strategy
+- **Backend repo** – FastAPI service & ML pipeline\
+  [https://github.com/koen-sikkema/wound-recognition-backend](https://github.com/koen-sikkema/wound-recognition-backend)
+
+---
+
 
 ## 📝 License
 
