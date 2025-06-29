@@ -1,0 +1,2 @@
+C:/Users/koens/Documents/GitHub/wound-recognition-frontend/wound_recognition_frontend/android/app/.cxx/RelWithDebInfo/732e3u6m/armeabi-v7a/CMakeFiles/edit_cache.dir
+C:/Users/koens/Documents/GitHub/wound-recognition-frontend/wound_recognition_frontend/android/app/.cxx/RelWithDebInfo/732e3u6m/armeabi-v7a/CMakeFiles/rebuild_cache.dir

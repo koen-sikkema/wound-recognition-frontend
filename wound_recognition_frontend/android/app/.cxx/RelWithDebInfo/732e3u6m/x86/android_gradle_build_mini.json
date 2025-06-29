@@ -1,0 +1,20 @@
+{
+  "buildFiles": [
+    "C:\\Users\\koens\\Documents\\flutter\\flutter_windows_3.29.3-stable\\flutter\\packages\\flutter_tools\\gradle\\src\\main\\groovy\\CMakeLists.txt"
+  ],
+  "cleanCommandsComponents": [
+    [
+      "C:\\Users\\koens\\AppData\\Local\\Android\\Sdk\\cmake\\3.22.1\\bin\\ninja.exe",
+      "-C",
+      "C:\\Users\\koens\\Documents\\GitHub\\wound-recognition-frontend\\wound_recognition_frontend\\android\\app\\.cxx\\RelWithDebInfo\\732e3u6m\\x86",
+      "clean"
+    ]
+  ],
+  "buildTargetsCommandComponents": [
+    "C:\\Users\\koens\\AppData\\Local\\Android\\Sdk\\cmake\\3.22.1\\bin\\ninja.exe",
+    "-C",
+    "C:\\Users\\koens\\Documents\\GitHub\\wound-recognition-frontend\\wound_recognition_frontend\\android\\app\\.cxx\\RelWithDebInfo\\732e3u6m\\x86",
+    "{LIST_OF_TARGETS_TO_BUILD}"
+  ],
+  "libraries": {}
+}
