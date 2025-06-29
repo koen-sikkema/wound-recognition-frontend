@@ -2,28 +2,23 @@
 
 Flutter‐powered mobile & web client for the **Wound Recognition POC** — a demo app exploring how AI can support wound-care professionals by classifying wound images automatically.
 
-<p align="center">
-  <img src="docs/screenshot_upload_page.png" width="280"/>
-  <img src="docs/screenshot_result_page.png" width="280"/>
-</p>
-
 ---
 
 ## ✨ Key Features
 
-| Feature | Description | Related requirements |
-|---------|-------------|----------------------|
-| **Image picker** | Select from gallery or open device camera | F1, F6 |
-| **Secure upload** | Sends image to FastAPI backend via `MultipartRequest` | F2 |
-| **Async polling** | Polls backend every second until classification ready | F3–F5 |
-| **Prediction viewer** | Displays label, confidence & timestamp in a `PredictionCard` | F4, F5 |
-| **Local history** | Saves predictions in `SharedPreferences`; supports delete | F7, F9 |
-| **Remote history** | Retrieves all predictions from backend on demand | F8 |
-| **Responsive UI** | Works on Android, iOS and web (Chrome, Edge, …) | — |
+| Feature               | Description                                                  | Related requirements |
+| --------------------- | ------------------------------------------------------------ | -------------------- |
+| **Image picker**      | Select from gallery or open device camera                    | F1, F6               |
+| **Secure upload**     | Sends image to FastAPI backend via `MultipartRequest`        | F2                   |
+| **Async polling**     | Polls backend every second until classification ready        | F3–F5                |
+| **Prediction viewer** | Displays label, confidence & timestamp in a `PredictionCard` | F4, F5               |
+| **Local history**     | Saves predictions in `SharedPreferences`; supports delete    | F7, F9               |
+| **Remote history**    | Retrieves all predictions from backend on demand             | F8                   |
+| **Responsive UI**     | Works on Android, iOS and web (Chrome, Edge, …)              | —                    |
 
 ---
 
-## 🏗️ Project Structure
+## 📇 Project Structure
 
 ```
 lib/
@@ -57,7 +52,7 @@ flutter pub get
 
 ### 2. Configure API endpoint
 
-Edit **`lib/constants/app_constants.dart`**
+Edit ``
 
 ```dart
 class AppConstants {
@@ -80,8 +75,8 @@ flutter run -d chrome
 
 ## 🧪 Tests
 
-> This POC focuses on backend test coverage.  
-> Front-end functionality was manually verified (navigation, upload, polling, local storage).  
+> This POC focuses on backend test coverage.\
+> Front-end functionality was manually verified (navigation, upload, polling, local storage).\
 > Future work: add `flutter_test` widget tests and `integration_test` E2E flows.
 
 ---
@@ -89,8 +84,66 @@ flutter run -d chrome
 ## 📚 Documentation
 
 - **Software Architectuur Document (SAD)** — full C4 model, code views, test strategy
-- **Backend repo** – FastAPI service & ML pipeline  
-  <https://github.com/koen-sikkema/wound-recognition-backend>
+- **Backend repo** – FastAPI service & ML pipeline\
+  [https://github.com/koen-sikkema/wound-recognition-backend](https://github.com/koen-sikkema/wound-recognition-backend)
+
+---
+
+## 📦 Build & Install APK (Android – without Play Store)
+
+Want to install the app directly on your Android device and connect it to your own backend?\
+Follow these steps to build and install a custom APK:
+
+### 🔧 1. Clone the repository
+
+```bash
+git clone https://github.com/koen-sikkema/wound-recognition-frontend.git
+cd wound-recognition-frontend
+flutter pub get
+```
+
+---
+
+### ✏️ 2. Configure the backend URL
+
+Edit the file:
+
+```
+lib/constants/app_constants.dart
+```
+
+Replace the default base URL with the actual location of your backend:
+
+```dart
+static const String BASE_URL = 'http://your-server-ip:8000';
+```
+
+Example: `http://192.168.1.100:8000` if your backend runs on another machine in the same network.
+
+---
+
+### 🏗️ 3. Build the release APK
+
+```bash
+flutter build apk --release
+```
+
+This creates a production-ready APK at:
+
+```
+build/app/outputs/flutter-apk/app-release.apk
+```
+
+---
+
+### 📲 4. Install the APK on your Android device
+
+- Transfer the APK to your phone (via USB, email, or cloud storage).
+- Open the file on your device.
+- Allow installation from "unknown sources" when prompted.
+- Tap **Install** and launch the app.
+
+> 💡 Make sure your backend is reachable from your device and allows CORS requests.
 
 ---
 
@@ -100,5 +153,6 @@ This project is released under the **MIT License** — see [`LICENSE`](LICENSE) 
 
 ---
 
->👤 **Author**: Koen Sikkema  
-🧑‍🏫 **Supervised by**: Egbert Wiltens, on behalf of [**Health Hub Roden**](https://www.health-hub.eu/home)
+> 👤 **Author**: Koen Sikkema\
+> 🧑‍🏫 **Supervised by**: Egbert Wiltens, on behalf of [**Health Hub Roden**](https://www.health-hub.eu/home)
+
