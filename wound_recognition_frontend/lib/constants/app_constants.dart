@@ -2,11 +2,12 @@
 class AppConstants {
   static const String APP_NAME = 'WondherkenningsApplicatie';
 
-  static const String PREDICTIONS_URI = 'http://localhost:8000/predictions/';
-  static const String UPLOAD_URI = 'http://localhost:8000/upload/';
-  static const String RESULT_URI = 'http://localhost:8000/results/';
-  static const String SERVER_URI = 'http://localhost:8000/';
-  static const String PREDICTION_HISTORY = 'http://localhost:8000/history/';
+  static const String PREDICTIONS_URI = 'http://192.168.168.102:8000/predictions/';
+  static const String UPLOAD_URI = 'http://192.168.168.102:8000/upload/';
+  static const String RESULT_URI = 'http://192.168.168.102:8000/results/';
+  static const String SERVER_URI = 'http://192.168.168.102:8000/';
+  static const String PREDICTION_HISTORY = 'http://192.168.168.102:8000/predictions/';
+
 
   static const String SERVER_URI_MOBILE_RODEN = 'http://172.16.2.220:8000/';
   static const String RESULT_URI_MOBILE_RODEN = 'http://172.16.2.220:8000/results/';

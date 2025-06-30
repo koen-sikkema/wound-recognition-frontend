@@ -8,7 +8,7 @@ class PredictionHistoryService {
   Future<List<Prediction>> fetchAllPredictions() async
   {
     try {
-      final response = await http.get(Uri.parse(AppConstants.PREDICTION_HISTORY_MOBILE_RODEN));
+      final response = await http.get(Uri.parse(AppConstants.PREDICTIONS_URI));
 
       if (response.statusCode == 200) {
         final Map<String, dynamic> json = jsonDecode(response.body);
@@ -27,7 +27,7 @@ class PredictionHistoryService {
   Future<String?> deleteAllPredictions() async{
     try {
       final response = await http.delete(
-          Uri.parse(AppConstants.DELETE_HISTORY_MOBILE_RODEN));
+          Uri.parse(AppConstants.PREDICTIONS_URI));
       if (response.statusCode == 200) {
         return "Alle voorspellingen verwijdert!";
       } else {
